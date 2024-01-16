@@ -1,0 +1,72 @@
+@import "../../../../ui/global.scss";
+#Cadastro {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  background-color: white;
+  z-index: 3;
+  .logo-img {
+    width: 35%;
+    height: auto;
+  }
+
+  .button-checkbox {
+    filter: drop-shadow(3px 2px 5.5px rgba(54, 135, 255, 0.3)) !important;
+    background-color: white;
+    zoom: 1.2;
+    &.active {
+      border-left: 3px solid $primary-blue-100 !important;
+      transition: border-color 0.5s ease;
+    }
+  }
+
+  .button-arrow {
+    background-color: white;
+    border-radius: 25px;
+    width: 55px;
+    height: 55px;
+    padding-top: 14px;
+    img {
+      width: 70%;
+    }
+  }
+}
+
+#RegisterDev {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  background-color: white;
+  height: 100vh;
+  z-index: 3;
+  .logo-img {
+    width: 35%;
+    height: auto;
+  }
+
+  .button-checkbox {
+    filter: drop-shadow(3px 2px 5.5px rgba(54, 135, 255, 0.3)) !important;
+    background-color: white;
+    zoom: 1.2;
+    &.active {
+      border-left: 3px solid $primary-blue-100 !important;
+      transition: border-color 0.5s ease;
+    }
+  }
+  .back-component {
+    position: absolute;
+    left: 50px;
+  }
+}
+
+.button-arrow-register {
+  background-color: white;
+  border-radius: 25px;
+  width: 55px;
+  height: 55px;
+  padding-top: 14px;
+  img {
+    width: 20px;
+    height: 20px;
+  }
+}
