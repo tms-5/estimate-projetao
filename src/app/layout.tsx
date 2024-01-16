@@ -1,16 +1,26 @@
+import '../ui/global.scss';
+import '../ui/utils.scss'; 
+
 export const metadata = {
-  title: 'EstiMate Dev',
-  description: 'A place to estimate dev efforts',
-}
+  title: "EstiMate Dev",
+  description: "A place to estimate dev efforts",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <head>
+        <link
+          rel="icon"
+          type="image/png"
+          href="../../public/logomarca.png"
+        />
+      </head>
+      <body suppressHydrationWarning={true}>{children}</body>
     </html>
-  )
+  );
 }
