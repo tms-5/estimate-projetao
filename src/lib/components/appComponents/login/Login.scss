@@ -1,0 +1,17 @@
+#Login {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  background-color: white;
+  z-index: 3;
+  img {
+    width: 35%;
+    height: auto;
+  }
+
+  .button-register-now {
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+  }
+}
