@@ -1,5 +1,3 @@
-import "./Button.scss";
-
 export default function Button(props: {
   class?: string;
   text?: any;
