@@ -1,7 +1,7 @@
-import { seniorityType } from "./enum";
+import { seniorityType, userType } from "./enum";
 
-const fakeUser = {
-  level: "Desenvolvedor",
+const fakeDev = {
+  level: userType.developer,
   name: "John Doe",
   email: "developer@example.com",
   seniority: seniorityType.jr,
@@ -9,17 +9,23 @@ const fakeUser = {
   nickname: "johndoe",
 };
 
-function fetchUserFromDatabase() {
+const fakeCompany = {
+  level: userType.company,
+  name: "Innova Tech",
+  email: "company@example.com",
+};
+
+function fetchUserFromDatabase(email: string) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(fakeUser);
+      resolve(email.includes("developer") ? fakeDev : fakeCompany);
     }, 1000);
   });
 }
 
-export async function getUserInfo() {
+export async function getUserInfo(email: string) {
   try {
-    const user = await fetchUserFromDatabase();
+    const user = await fetchUserFromDatabase(email);
     return user;
   } catch (error) {
     console.error("Erro ao buscar informações do usuário:", error);
