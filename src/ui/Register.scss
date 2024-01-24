@@ -1,4 +1,3 @@
-@import "./global.scss";
 #Cadastro {
   display: grid;
   align-content: center;
@@ -15,7 +14,7 @@
     background-color: white;
     zoom: 1.2;
     &.active {
-      border-left: 3px solid $primary-blue-100 !important;
+      border-left: 3px solid --var($primary-blue-100) !important;
       transition: border-color 0.5s ease;
     }
   }

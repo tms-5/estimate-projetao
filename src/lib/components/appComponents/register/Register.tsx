@@ -2,7 +2,6 @@
 import Logo from "../../../assets/logo/logo-degrade.png";
 import Arrow from "../../../assets/icon/arrow.png";
 import Image from "next/image";
-import "./Register.scss";
 import Button from "../../button/Button";
 import React, { useState } from "react";
 import { userType } from "@/store/enum";
