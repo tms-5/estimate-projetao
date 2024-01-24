@@ -1,4 +1,4 @@
-import { seniorityType } from "./enum";
+import { seniorityType, userType } from "./enum";
 
 export interface Login {
   email: string;
@@ -6,19 +6,20 @@ export interface Login {
 }
 
 export interface User {
+  level: userType;
   name: string;
   nickname: string;
   email: string;
-  password: string;
+  password?: string;
   seniority: seniorityType;
-  ocupation: string;
   analist: boolean;
 }
 
 export interface Company {
+  level: userType;
   name: string;
   email: string;
-  password: string;
+  password?: string;
 }
 
 export interface Task {}

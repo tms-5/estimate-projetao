@@ -1,0 +1,11 @@
+.sidebar-menu{
+    min-width: 200px;
+    text-align: center;
+}
+
+.active-item-sidebar {
+  border-radius: 4px;
+  border: 1px solid var(--primary-teal-blue-100, #0898b5);
+  background: rgba(8, 152, 181, 0.2);
+  padding: 4px 0;
+}

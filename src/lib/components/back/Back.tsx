@@ -1,7 +1,6 @@
 "use client";
 import ArrowBack from "../../assets/icon/arrow_back.png";
 import Image from "next/image";
-import './Back.scss';
 
 export default function Back(props: { text: string; onClick: () => void }) {
   return (

@@ -1,0 +1,24 @@
+.search-div {
+  .search-input {
+    padding: 0.5rem !important;
+    border-radius: 8px;
+    border: 1px solid var(--primary-primary-blue-25, #cde1ff45);
+    font-size: 0.8rem;
+    color: var(--gray-scale-gray-25, #575757);
+    font-family: "Nunito Sans", sans-serif !important;
+    width: 30vw;
+  }
+  button {
+    position: absolute;
+    padding: 0;
+    top: 10px;
+    right: 10px;
+    img {
+      filter: invert(80%) sepia(41%) saturate(2192%) hue-rotate(184deg)
+        brightness(101%) contrast(102%);
+    }
+  }
+  &:focus {
+    border-left: none !important;
+  }
+}
