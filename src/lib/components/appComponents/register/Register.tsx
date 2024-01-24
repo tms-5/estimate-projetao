@@ -6,6 +6,7 @@ import "./Register.scss";
 import Button from "../../button/Button";
 import React, { useState } from "react";
 import { userType } from "@/store/enum";
+import Link from "next/link";
 
 export default function Register(props: {
   setActiveType: (arg: string) => any;
@@ -17,7 +18,7 @@ export default function Register(props: {
   return (
     <div className="w-50" id="Cadastro">
       <div className="w-70 d-grid justify-items-center">
-        <Image src={Logo} alt="Logo" className="logo-img"/>
+        <Image src={Logo} alt="Logo" className="logo-img" />
 
         <p className="mt-2r mb-1r f-08">Quero me cadastrar como:</p>
 
@@ -40,6 +41,13 @@ export default function Register(props: {
           />
         </div>
       </div>
+      <Link
+        key={"register"}
+        href={"/register"}
+        className="b-none no-filter fw-400 button-register-now"
+      >
+        <p className="hidden md:block">Já tem uma conta? Entrar</p>
+      </Link>
     </div>
   );
 }
