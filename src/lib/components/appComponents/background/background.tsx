@@ -1,4 +1,3 @@
-import "./background.scss";
 import Cube from "../../../assets/logo/logomarca.png";
 import Image from "next/image";
 
