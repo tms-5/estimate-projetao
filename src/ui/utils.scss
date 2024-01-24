@@ -1,4 +1,8 @@
 @import "./global.scss";
+@import "./background.scss";
+@import "./Input.scss";
+@import "./Button.scss";
+@import "./Login.scss";
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,200;6..12,300;6..12,400;6..12,500;6..12,600;6..12,700;6..12,800;6..12,900;6..12,1000&display=swap");
 
 html {
@@ -201,6 +205,10 @@ body {
   padding-left: 1rem !important;
 }
 
+.pl-2r {
+  padding-left: 2rem !important;
+}
+
 .pl-1-5r {
   padding-left: 1.5rem !important;
 }
@@ -219,6 +227,10 @@ body {
 
 .pt-1 {
   padding-top: 0.5rem;
+}
+
+.pt-2r {
+  padding-top: 2rem;
 }
 
 .pr-1 {
@@ -548,7 +560,7 @@ body {
   float: right;
 }
 
-.align-center {
+.align-items-center {
   align-items: center;
 }
 
