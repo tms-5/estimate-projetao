@@ -1,0 +1,49 @@
+.square-1 {
+  background: rgba(15, 43, 97, 0.39);
+  position: absolute;
+  transform: rotate(-31.488deg);
+  top: -50px;
+  right: 66%;
+  width: 162px;
+  height: 162px;
+}
+
+.square-2 {
+  background: rgba(19, 49, 108, 0.33);
+  position: absolute;
+  transform: rotate(38.253deg);
+  top: 99px;
+  right: -11%;
+  width: 350px;
+  height: 350px;
+}
+
+.square-3 {
+  background: rgba(1, 21, 59, 0.53);
+  position: absolute;
+  transform: rotate(-17.257deg);
+  top: 45%;
+  right: -11%;
+  width: 320px;
+  height: 320px;
+}
+
+.square-4 {
+  background: rgba(26, 59, 124, 0.91);
+  position: absolute;
+  transform: rotate(31.703deg);
+  bottom: -3%;
+  right: -11%;
+  width: 300px;
+  height: 300px;
+}
+
+.cube-logo {
+  position: absolute;
+  max-width: 100px;
+  min-width: 52px;
+  width: auto;
+  top: 45%;
+  height: auto;
+  left: 48%;
+}
