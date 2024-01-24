@@ -29,7 +29,7 @@ export default function Login() {
       formData.email === "developer@example.com" ||
       formData.email === "company@example.com"
     ) {
-      await login();
+      await login(formData.email);
       window.location.href = "/home";
     }
   };
@@ -42,49 +42,43 @@ export default function Login() {
 
   return (
     <>
-      {isAuthenticated() ? (
-        <>
-          <div className="w-50" id="Login">
-            <div className="w-70 d-grid justify-items-center">
-              <Image src={Logo} alt="Logo" />
-              <Input
-                type="email"
-                class="b-none mt-2r w-web font-nunito"
-                placeholder="Email"
-                value={formData.email}
-                name="email"
-                onChange={handleChange}
-              />
-              <Input
-                type="password"
-                class="b-none mt-1r w-web font-nunito"
-                placeholder="Senha"
-                value={formData.password}
-                name="password"
-                onChange={handleChange}
-              />
-              <div className="d-flex mt-2r justify-s-b w-100">
-                <Button
-                  text={"Entrar"}
-                  class="b-none bg-white"
-                  onClick={() => validateLogin()}
-                />
-                <Button text={"Esqueceu a senha?"} class="b-none no-filter" />
-              </div>
-            </div>
+      <div className="w-50" id="Login">
+        <div className="w-70 d-grid justify-items-center">
+          <Image src={Logo} alt="Logo" />
+          <Input
+            type="email"
+            class="b-none mt-2r w-web font-nunito"
+            placeholder="Email"
+            value={formData.email}
+            name="email"
+            onChange={handleChange}
+          />
+          <Input
+            type="password"
+            class="b-none mt-1r w-web font-nunito"
+            placeholder="Senha"
+            value={formData.password}
+            name="password"
+            onChange={handleChange}
+          />
+          <div className="d-flex mt-2r justify-s-b w-100">
+            <Button
+              text={"Entrar"}
+              class="b-none bg-white"
+              onClick={() => validateLogin()}
+            />
+            <Button text={"Esqueceu a senha?"} class="b-none no-filter" />
+          </div>
+        </div>
 
-            <Link
-              key={"register"}
-              href={"/register"}
-              className="b-none no-filter fw-400 button-register-now"
-            >
-              <p className="hidden md:block">
-                Não tem conta? Cadastre-se agora
-              </p>
-            </Link>
-          </div>{" "}
-        </>
-      ) : null}
+        <Link
+          key={"register"}
+          href={"/register"}
+          className="b-none no-filter fw-400 button-register-now"
+        >
+          <p className="hidden md:block">Não tem conta? Cadastre-se agora</p>
+        </Link>
+      </div>{" "}
     </>
   );
 }
