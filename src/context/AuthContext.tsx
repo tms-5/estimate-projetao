@@ -11,7 +11,7 @@ import React, {
 
 type authContextType = {
   user: User | Company | "" | null;
-  login: () => void;
+  login: (email: string) => void;
   logout: () => void;
 };
 
@@ -44,8 +44,8 @@ export function AuthProvider({ children }: Props) {
     }
   }, []);
 
-  const login = async () => {
-    const userInfo = await getUserInfo();
+  const login = async (email: string) => {
+    const userInfo = await getUserInfo(email);
     localStorage.setItem("user", JSON.stringify(userInfo));
     setUser(userInfo as User | Company | "" | null);
   };
