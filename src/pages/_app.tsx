@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { AuthProvider, useAuth } from "../context/AuthContext";
+import { AuthProvider } from "../context/AuthContext";
 import "../ui/utils.scss";
 import Head from "next/head";
 
@@ -15,7 +14,7 @@ function MyApp({
       {" "}
       <Head>
         <title>EstiMate Dev</title>
-        <link rel="icon" href="../../../public/logomarca.png" />
+        <link rel="icon" href="../../public/favicon.ico" />
       </Head>
       <main>
         <AuthProvider>
