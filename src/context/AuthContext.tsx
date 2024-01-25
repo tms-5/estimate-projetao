@@ -53,6 +53,7 @@ export function AuthProvider({ children }: Props) {
   const logout = () => {
     setUser(null);
     localStorage.setItem("user", "");
+    window.location.href = "/";
   };
 
   const value = {
