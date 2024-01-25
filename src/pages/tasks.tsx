@@ -4,6 +4,9 @@ import { useAuth } from "../context/AuthContext";
 import Sidebar from "@/lib/components/sidebar/Sidebar";
 import { useRouter } from "next/router";
 import { isAuthenticated } from "@/store/main";
+import { userType } from "@/store/enum";
+import TaskDev from "@/lib/components/appComponents/task/TaskDev";
+import TaskCompany from "@/lib/components/appComponents/task/TaskCompany";
 
 function TasksPage() {
   const { user } = useAuth();
@@ -30,14 +33,11 @@ function TasksPage() {
 
   return (
     <>
-      {isAuthenticated()
-        ? user &&
-          typeof user !== "string" && (
-            <Sidebar user={user!}>
-              <h1>Página de tasks</h1>
-            </Sidebar>
-          )
-        : null}
+      {isAuthenticated() && user && typeof user !== "string" && (
+        <Sidebar user={user!}>
+          {user.level === userType.developer ? <TaskDev /> : <TaskCompany />}
+        </Sidebar>
+      )}
     </>
   );
 }
