@@ -6,6 +6,7 @@ import Logo from "../../assets/logo/logo-100-branca.png";
 import IconMenu from "../../assets/icon/dashboard_FILL1_wght400_GRAD0_opsz24 1.png";
 import { useRouter } from "next/router";
 import Navbar from "../navbar/Navbar";
+import { useEffect, useState } from "react";
 
 function Sidebar({
   user,
@@ -18,17 +19,28 @@ function Sidebar({
   const isRouteActive = (path: string) => {
     return router.pathname === path;
   };
+
+  const [search, setSearch] = useState(false);
   const developerOptions = [
-    { name: "Dashboard", path: "/home" },
-    { name: "Tasks", path: "/tasks" },
-    { name: "Projetos", path: "/projects" },
-    { name: "Suporte", path: "/support" },
+    { name: "Dashboard", path: "/home", search: true },
+    { name: "Tasks", path: "/tasks", search: false },
+    { name: "Projetos", path: "/projects", search: false },
+    { name: "Suporte", path: "/support", search: false },
   ];
 
   const companyOptions = [
-    { name: "Início", path: "/home" },
-    { name: "Projetos", path: "/projetos" },
+    { name: "Início", path: "/home", search: false },
+    { name: "Projetos", path: "/projetos", search: false },
   ];
+
+  useEffect(() => {
+    if (
+      window.location.pathname === "/home" &&
+      user.level === userType.developer
+    ) {
+      setSearch(true);
+    }
+  }, [user.level]);
 
   return (
     <>
@@ -63,7 +75,9 @@ function Sidebar({
               ))
             : null}
         </aside>
-        <Navbar user={user!}>{children}</Navbar>
+        <Navbar user={user!} search={search}>
+          {children}
+        </Navbar>
       </div>
     </>
   );
