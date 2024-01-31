@@ -268,6 +268,10 @@ div {
   color: $teal-blue-50;
 }
 
+.c-teal-blue-100 {
+  color: $teal-blue-100;
+}
+
 .c-gray-25 {
   color: $gray-25;
 }
@@ -322,12 +326,32 @@ div {
   flex-direction: column;
 }
 
+.direction-row {
+  flex-direction: row;
+}
+
 .justify-flex-start {
   justify-content: flex-start;
 }
 
 .flex-direction-reverse {
   flex-direction: row-reverse;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+
+.gap-2{
+  gap: 2rem;
+}
+
+.column-gap-1 {
+  column-gap: 1rem;
+}
+
+.column-gap-2 {
+  column-gap: 2rem;
 }
 
 /*Text aling*/
@@ -541,6 +565,10 @@ div {
   border-radius: 10px;
 }
 
+.b-8 {
+  border-radius: 8px;
+}
+
 .b-13 {
   border-radius: 13px;
 }
@@ -641,6 +669,10 @@ a {
 
 .flex-wrap-nowrap {
   flex-wrap: nowrap !important;
+}
+
+.flex-wrap-wrap {
+  flex-wrap: wrap !important;
 }
 
 .rotate-arrow {
