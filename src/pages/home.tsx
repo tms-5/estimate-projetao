@@ -34,6 +34,7 @@ function DashboardPage() {
         ? user &&
           typeof user !== "string" && (
             <Sidebar user={user!}>
+              <div>{formatDate(new Date())}</div>
               <h1>Bem vindo de volta, {user.name}</h1>
             </Sidebar>
           )
