@@ -16,7 +16,7 @@ function Navbar(props: {
   return (
     <div className="p-2 w-web">
       <div
-        className={`d-flex w-100 ${
+        className={`d-flex pl-2r ${
           props.search ? "justify-s-b" : "justify-end"
         }`}
       >

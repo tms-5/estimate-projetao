@@ -25,7 +25,7 @@ function UserDropdown({ userName }: { userName: string }) {
 
   return (
     <>
-      <div className="p-relative">
+      <div className="p-relative mr-2r">
         <div
           onClick={() => setIsOpen(!isOpen)}
           className="d-flex c-pointer align-items-center"
