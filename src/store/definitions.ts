@@ -22,6 +22,12 @@ export interface Company {
   password?: string;
 }
 
-export interface Task {}
 
-export interface Component {}
+export interface Component { }
+export interface TaskCard {
+  id: string;
+  nome: string;
+  descricao: string;
+  projeto_id: string;
+  avaliacoes: number;
+}

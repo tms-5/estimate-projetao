@@ -126,6 +126,10 @@ div {
   margin-right: 0.5rem;
 }
 
+.mr-05 {
+  margin-right: 0.25rem;
+}
+
 .m-auto {
   margin: auto !important;
 }
@@ -531,6 +535,10 @@ div {
   width: 100% !important;
 }
 
+.w-max-100 {
+  max-width: 100% !important;
+}
+
 .w-inherit {
   width: inherit;
 }
@@ -557,6 +565,11 @@ div {
 }
 
 /*Border radius*/
+
+.b-3 {
+  border-radius: 3px;
+}
+
 .b-5 {
   border-radius: 5px;
 }
@@ -706,4 +719,33 @@ button {
 .blue-img {
   filter: invert(80%) sepia(41%) saturate(2192%) hue-rotate(184deg)
     brightness(101%) contrast(102%);
+}
+
+/*Outros*/
+
+.task-card{
+  max-width: 280px;
+  min-height: 120px;
+  max-height: 120px;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--primary-primary-blue-25, #cde1ff45);
+  font-size: 0.8rem;
+  color: var(--gray-scale-gray-25, #575757);
+  font-family: "Nunito Sans", sans-serif !important;
+  box-shadow: 0px 2px 10px 0px var(--primary-teal-blue-25, #c1e5ec80);
+}
+
+.task-button {
+  color: var(--teal-blue-100, #0898b5);
+  border: 1px solid var(--teal-blue-100, #0898b5);
+  border-radius: 4px;
+  font-family: "Nunito Sans", sans-serif !important;
+  padding: 3px 12px;
+  margin: 16px 0 0 0;
+
+  &:hover {
+    background-color: var(--teal-blue-100, #0898b5);
+    color: #ffffff;
+  }
 }
