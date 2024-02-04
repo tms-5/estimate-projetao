@@ -10,3 +10,9 @@ export enum userType {
   company = "Empresa",
   developer = "Desenvolvedor",
 }
+
+export enum StatTypes {
+  regular = "regular",
+  profit = "profit",
+  balance = "balance"
+}
