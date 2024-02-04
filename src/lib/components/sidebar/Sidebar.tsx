@@ -8,12 +8,11 @@ import { useRouter } from "next/router";
 import Navbar from "../navbar/Navbar";
 import { useEffect, useState } from "react";
 
-function Sidebar({
-  user,
-  children,
-}: {
+function Sidebar(props: {
   user: Company | User;
   children: React.ReactNode;
+  backTo?: string;
+  backToRoute?: string;
 }) {
   const router = useRouter();
   const isRouteActive = (path: string) => {
@@ -36,18 +35,18 @@ function Sidebar({
   useEffect(() => {
     if (
       window.location.pathname === "/home" &&
-      user.level === userType.developer
+      props.user.level === userType.developer
     ) {
       setSearch(true);
     }
-  }, [user.level]);
+  }, [props.user.level]);
 
   return (
     <>
       <div className="d-flex h-100v">
         <aside className="bg-space-blue-100 c-white pl-1r pr-1r pt-2r sidebar-menu">
           <Image src={Logo} width={150} alt="Logo EstiMate" className="mb-1r" />
-          {user && user.level === userType.developer
+          {props.user && props.user.level === userType.developer
             ? developerOptions.map((option) => (
                 <div
                   className={`d-flex align-items-center mb-1 pl-1 pr-1 c-pointer ${
@@ -60,7 +59,7 @@ function Sidebar({
                   <div className="ml-1 f-09">{option.name}</div>
                 </div>
               ))
-            : user && user.level === userType.company
+            : props.user && props.user.level === userType.company
             ? companyOptions.map((option) => (
                 <div
                   className={`d-flex align-items-center mb-1 pl-1 pr-1 c-pointer ${
@@ -75,8 +74,13 @@ function Sidebar({
               ))
             : null}
         </aside>
-        <Navbar user={user!} search={search}>
-          {children}
+        <Navbar
+          user={props.user!}
+          search={search}
+          backTo={props.backTo}
+          backToRoute={props.backToRoute}
+        >
+          {props.children}
         </Navbar>
       </div>
     </>
