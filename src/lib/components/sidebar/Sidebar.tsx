@@ -3,10 +3,9 @@ import { Company, User } from "@/store/definitions";
 import { userType } from "@/store/enum";
 import Image from "next/image";
 import Logo from "../../assets/logo/logo-100-branca.png";
-import IconMenu from "../../assets/icon/dashboard_FILL1_wght400_GRAD0_opsz24 1.png";
-import { useRouter } from "next/router";
 import Navbar from "../navbar/Navbar";
 import { useEffect, useState } from "react";
+import SidebarItem from "./SidebarItem";
 
 function Sidebar(props: {
   user: Company | User;
@@ -14,11 +13,6 @@ function Sidebar(props: {
   backTo?: string;
   backToRoute?: string;
 }) {
-  const router = useRouter();
-  const isRouteActive = (path: string) => {
-    return router.pathname === path;
-  };
-
   const [search, setSearch] = useState(false);
   const developerOptions = [
     { name: "Dashboard", path: "/home", search: true },
@@ -48,29 +42,11 @@ function Sidebar(props: {
           <Image src={Logo} width={150} alt="Logo EstiMate" className="mb-1r" />
           {props.user && props.user.level === userType.developer
             ? developerOptions.map((option) => (
-                <div
-                  className={`d-flex align-items-center mb-1 pl-1 pr-1 c-pointer ${
-                    isRouteActive(option.path) ? "active-item-sidebar" : ""
-                  }`}
-                  key={option.name}
-                  onClick={() => router.push(option.path)}
-                >
-                  <Image src={IconMenu} width={15} alt="Icon menu" />
-                  <div className="ml-1 f-09">{option.name}</div>
-                </div>
+                <SidebarItem option={option} key={option.name} />
               ))
             : props.user && props.user.level === userType.company
             ? companyOptions.map((option) => (
-                <div
-                  className={`d-flex align-items-center mb-1 pl-1 pr-1 c-pointer ${
-                    isRouteActive(option.path) ? "active-item-sidebar" : ""
-                  }`}
-                  key={option.name}
-                  onClick={() => router.push(option.path)}
-                >
-                  <Image src={IconMenu} width={15} alt="Icon menu" />
-                  <div className="ml-1 f-09">{option.name}</div>
-                </div>
+                <SidebarItem option={option} key={option.name} />
               ))
             : null}
         </aside>
