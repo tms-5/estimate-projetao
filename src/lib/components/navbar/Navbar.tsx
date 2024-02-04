@@ -34,7 +34,7 @@ function Navbar(props: {
     <div className="p-2 w-web">
       <div
         className={`d-flex pl-2r ${
-          props.search ? "justify-s-b" : "justify-end"
+          props.search || props.backTo ? "justify-s-b" : "justify-end"
         }`}
       >
         {renderRightComponent()}
