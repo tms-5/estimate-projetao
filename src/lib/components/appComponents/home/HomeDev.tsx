@@ -1,10 +1,45 @@
-import { Company, User } from "@/store/definitions";
 import { useState } from "react";
 import DashboardStats from "../../dashboardStats/dashboardStats";
 import TaskCard from "../../card/TaskCard";
+import { StatTypes } from "@/store/enum";
+import { useAuth } from "@/context/AuthContext";
 
-export default function HomeDev(props: { user: User | Company }) {
+export default function HomeDev() {
+  const { user } = useAuth();
   const [currentDate, setCurrentDate] = useState(new Date());
+
+  let infosDevs = [
+    {
+      value: "00",
+      text: "Contribuições em tarefas",
+      color: "#A66EBA",
+      type: StatTypes.regular,
+    },
+    {
+      value: "00",
+      text: "Estimativas corretas",
+      color: "#3687ff",
+      type: StatTypes.regular,
+    },
+    {
+      value: "00",
+      text: "Participações em projetos",
+      color: "#83CBDA",
+      type: StatTypes.regular,
+    },
+    {
+      value: "00",
+      text: "Saldo da carteira",
+      color: "#3687ff",
+      type: StatTypes.balance,
+    },
+    {
+      value: "+R$ 00,00",
+      text: "Este mês",
+      color: "#008953",
+      type: StatTypes.profit,
+    },
+  ];
   return (
     <>
       <div className="w-max-100">
@@ -31,40 +66,19 @@ export default function HomeDev(props: { user: User | Company }) {
                 .slice(1)}
           </p>
           <h1 className="f-1-0 fw-500">
-            Bem-vindo de volta, {props.user.name.split(" ")[0]}!
+            Bem-vindo de volta, {user && user.name && user.name.split(" ")[0]}!
           </h1>
         </div>
         <div className="mt-2r w-max-100 h-fit d-flex direction-row flex-wrap-wrap gap-2 justify-center">
-          <DashboardStats
-            value="00"
-            text="Contribuições em tarefas"
-            type="regular"
-            color="#3687ff"
-          />
-          <DashboardStats
-            value="00"
-            text="Estimativas corretas"
-            type="regular"
-            color="#3687ff"
-          />
-          <DashboardStats
-            value="00"
-            text="Participações em projetos"
-            type="regular"
-            color="#3687ff"
-          />
-          <DashboardStats
-            value="R$ 00,00"
-            text="Saldo da carteira"
-            type="balance"
-            color="#3687ff"
-          />
-          <DashboardStats
-            value="+R$ 00,00"
-            text="Este mês "
-            type="profit"
-            color="#3687ff"
-          />
+          {infosDevs.map((card, i) => (
+            <DashboardStats
+              key={i}
+              value={card.value}
+              text={card.text}
+              type={card.type}
+              color={card.color}
+            />
+          ))}
         </div>
 
         <div className="w-fit ml-2r">
