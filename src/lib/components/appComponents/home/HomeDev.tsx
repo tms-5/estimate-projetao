@@ -3,6 +3,7 @@ import DashboardStats from "../../dashboardStats/dashboardStats";
 import TaskCard from "../../card/TaskCard";
 import { StatTypes } from "@/store/enum";
 import { useAuth } from "@/context/AuthContext";
+import PageTitle from "../../pageTitle/PageTitle";
 
 export default function HomeDev() {
   const { user } = useAuth();
@@ -40,35 +41,39 @@ export default function HomeDev() {
       type: StatTypes.profit,
     },
   ];
+
+  function returnDateAndTime() {
+    return (
+      currentDate
+        .toLocaleString("pt-BR", {
+          weekday: "short",
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        })
+        .replace(".", "")
+        .charAt(0)
+        .toUpperCase() +
+      currentDate
+        .toLocaleString("pt-BR", {
+          weekday: "short",
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        })
+        .replace(".", "")
+        .slice(1)
+    );
+  }
   return (
     <>
       <div className="w-max-100">
-        <div className="mt-2r ml-2r">
-          <p className="f-06 fw-500 c-teal-blue-100">
-            {currentDate
-              .toLocaleString("pt-BR", {
-                weekday: "short",
-                day: "numeric",
-                month: "short",
-                year: "numeric",
-              })
-              .replace(".", "")
-              .charAt(0)
-              .toUpperCase() +
-              currentDate
-                .toLocaleString("pt-BR", {
-                  weekday: "short",
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                })
-                .replace(".", "")
-                .slice(1)}
-          </p>
-          <h1 className="f-1-0 fw-500">
-            Bem-vindo de volta, {user && user.name && user.name.split(" ")[0]}!
-          </h1>
-        </div>
+        <PageTitle
+          title={returnDateAndTime()}
+          subTitle={`Bem-vindo de volta, ${
+            user && user.name && user.name.split(" ")[0]
+          }!`}
+        />
         <div className="mt-2r w-max-100 h-fit d-flex direction-row flex-wrap-wrap gap-2 justify-center">
           {infosDevs.map((card, i) => (
             <DashboardStats
@@ -95,6 +100,7 @@ export default function HomeDev() {
             descricao={"Criar tela de login"}
             projeto_id={""}
             avaliacoes={7}
+            routerTo="/task/id"
           />
         </div>
         <div className="w-fit ml-2r">
@@ -111,6 +117,7 @@ export default function HomeDev() {
             descricao={"Criar tela de login"}
             projeto_id={""}
             avaliacoes={7}
+            routerTo="/task/id"
           />
         </div>
       </div>
