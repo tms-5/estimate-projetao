@@ -36,7 +36,7 @@ function UserDropdown({ userName }: { userName: string }) {
             src={Arrow}
             alt="Arrow"
             width={8}
-            className={`ml-2r mr-1r ${isOpen ? `arrow-down` : "arrow-up"} blue-img`}
+            className={`ml-2r ${isOpen ? `arrow-down` : "arrow-up"} blue-img`}
           />
         </div>
 
