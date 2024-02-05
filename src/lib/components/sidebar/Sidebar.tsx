@@ -41,12 +41,12 @@ function Sidebar(props: {
         <aside className="bg-space-blue-100 c-white pl-1r pr-1r pt-2r sidebar-menu">
           <Image src={Logo} width={150} alt="Logo EstiMate" className="mb-1r" />
           {props.user && props.user.level === userType.developer
-            ? developerOptions.map((option) => (
-                <SidebarItem option={option} key={option.name} />
+            ? developerOptions.map((option, i) => (
+                <SidebarItem key={i} option={option} itemId={i} />
               ))
             : props.user && props.user.level === userType.company
-            ? companyOptions.map((option) => (
-                <SidebarItem option={option} key={option.name} />
+            ? companyOptions.map((option, i) => (
+                <SidebarItem key={i} option={option} itemId={i} />
               ))
             : null}
         </aside>
