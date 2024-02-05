@@ -9,6 +9,7 @@
 @import "./Register.scss";
 @import "./UserDropdown.scss";
 @import "./Card.scss";
+@import "./Task.scss";
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,200;6..12,300;6..12,400;6..12,500;6..12,600;6..12,700;6..12,800;6..12,900;6..12,1000&display=swap");
 
 html {
@@ -42,6 +43,14 @@ div {
 
 .bg-teal-blue-25 {
   background-color: $teal-blue-25;
+}
+
+.bg-teal-blue-50 {
+  background-color: $teal-blue-50;
+}
+
+.bg-teal-blue-100 {
+  background-color: $teal-blue-100;
 }
 
 /*Position*/
@@ -346,7 +355,7 @@ div {
   gap: 1rem;
 }
 
-.gap-2{
+.gap-2 {
   gap: 2rem;
 }
 
@@ -723,7 +732,7 @@ button {
 
 /*Outros*/
 
-.task-card{
+.task-card {
   max-width: 280px;
   min-height: 120px;
   max-height: 120px;
