@@ -3,13 +3,16 @@ import { TaskIcon, UserIcon } from "@/lib/assets/icon";
 import Image from "next/image";
 import Button from "../button/Button";
 import { TaskCard } from "@/store/definitions";
+import { useRouter } from "next/router";
 
 const TaskCard: React.FC<TaskCard> = ({
   id,
   descricao,
   projeto_id,
   avaliacoes,
+  routerTo,
 }) => {
+  const router = useRouter();
   return (
     <div className="task-card ml-2r">
       <div className="d-flex w-100 h-fit align-items-center justify-s-b">
@@ -24,7 +27,7 @@ const TaskCard: React.FC<TaskCard> = ({
         <Button
           text="Ver tarefa"
           class="task-button"
-          onClick={() => console.log("Ver detalhes")}
+          onClick={() => router.push(routerTo || "")}
         />
       </div>
     </div>
