@@ -31,9 +31,9 @@ function Navbar(props: {
   };
 
   return (
-    <div className="p-2 w-web">
+    <div className="p-2 w-web ml-2r">
       <div
-        className={`d-flex pl-2r ${
+        className={`d-flex ${
           props.search || props.backTo ? "justify-s-b" : "justify-end"
         }`}
       >
