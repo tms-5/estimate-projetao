@@ -33,7 +33,7 @@ export default function Layout(props: {
   }
 
   return (
-    <>
+    <div id="Layout">
       {isAuthenticated()
         ? user &&
           typeof user !== "string" && (
@@ -48,6 +48,6 @@ export default function Layout(props: {
             </Sidebar>
           )
         : null}
-    </>
+    </div>
   );
 }
