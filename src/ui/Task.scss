@@ -1,0 +1,11 @@
+.histogram-hidden {
+  .blur-histogram {
+    filter: blur(10px);
+    opacity: 0.3;
+  }
+  .buttons-histogram {
+    left: 40%;
+    top: 40%;
+    z-index: 3;
+  }
+}
