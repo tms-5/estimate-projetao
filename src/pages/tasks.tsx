@@ -6,7 +6,13 @@ import Layout from "@/layout/layout";
 function TasksPage() {
   return (
     <>
-      <Layout childrenDev={<TaskDev />} childrenCompany={<TaskCompany />} />;
+      <Layout
+        backto="Voltar para Início"
+        backToRoute="/home"
+        childrenDev={<TaskDev />}
+        childrenCompany={<TaskCompany />}
+      />
+      ;
     </>
   );
 }
