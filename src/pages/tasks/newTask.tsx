@@ -7,6 +7,7 @@ export default function NewTask() {
       backto="Voltar para Tasks"
       backToRoute="/tasks"
       childrenDev={<CreateTask />}
+      companyHasntAccess={true}
       childrenCompany={<></>}
     />
   );
