@@ -9,6 +9,8 @@
 @import "./Register.scss";
 @import "./UserDropdown.scss";
 @import "./Card.scss";
+@import "./Task.scss";
+@import "./DataTable.scss";
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,200;6..12,300;6..12,400;6..12,500;6..12,600;6..12,700;6..12,800;6..12,900;6..12,1000&display=swap");
 
 html {
@@ -42,6 +44,18 @@ div {
 
 .bg-teal-blue-25 {
   background-color: $teal-blue-25;
+}
+
+.bg-teal-blue-50 {
+  background-color: $teal-blue-50;
+}
+
+.bg-teal-blue-100 {
+  background-color: $teal-blue-100;
+}
+
+.bg-gray-5 {
+  background-color: $gray-5;
 }
 
 /*Position*/
@@ -124,6 +138,10 @@ div {
 
 .mr-1 {
   margin-right: 0.5rem;
+}
+
+.mr-05 {
+  margin-right: 0.25rem;
 }
 
 .m-auto {
@@ -268,6 +286,10 @@ div {
   color: $teal-blue-50;
 }
 
+.c-teal-blue-100 {
+  color: $teal-blue-100;
+}
+
 .c-gray-25 {
   color: $gray-25;
 }
@@ -322,12 +344,32 @@ div {
   flex-direction: column;
 }
 
+.direction-row {
+  flex-direction: row;
+}
+
 .justify-flex-start {
   justify-content: flex-start;
 }
 
 .flex-direction-reverse {
   flex-direction: row-reverse;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+
+.gap-2 {
+  gap: 2rem;
+}
+
+.column-gap-1 {
+  column-gap: 1rem;
+}
+
+.column-gap-2 {
+  column-gap: 2rem;
 }
 
 /*Text aling*/
@@ -507,6 +549,10 @@ div {
   width: 100% !important;
 }
 
+.w-max-100 {
+  max-width: 100% !important;
+}
+
 .w-inherit {
   width: inherit;
 }
@@ -533,12 +579,21 @@ div {
 }
 
 /*Border radius*/
+
+.b-3 {
+  border-radius: 3px;
+}
+
 .b-5 {
   border-radius: 5px;
 }
 
 .b-10 {
   border-radius: 10px;
+}
+
+.b-8 {
+  border-radius: 8px;
 }
 
 .b-13 {
@@ -643,6 +698,10 @@ a {
   flex-wrap: nowrap !important;
 }
 
+.flex-wrap-wrap {
+  flex-wrap: wrap !important;
+}
+
 .rotate-arrow {
   transform: rotate(180deg);
   transition: transform 0.5s;
@@ -674,4 +733,33 @@ button {
 .blue-img {
   filter: invert(80%) sepia(41%) saturate(2192%) hue-rotate(184deg)
     brightness(101%) contrast(102%);
+}
+
+/*Outros*/
+
+.task-card {
+  max-width: 280px;
+  min-height: 120px;
+  max-height: 120px;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--primary-primary-blue-25, #cde1ff45);
+  font-size: 0.8rem;
+  color: var(--gray-scale-gray-25, #575757);
+  font-family: "Nunito Sans", sans-serif !important;
+  box-shadow: 0px 2px 10px 0px var(--primary-teal-blue-25, #c1e5ec80);
+}
+
+.task-button {
+  color: var(--teal-blue-100, #0898b5);
+  border: 1px solid var(--teal-blue-100, #0898b5);
+  border-radius: 4px;
+  font-family: "Nunito Sans", sans-serif !important;
+  padding: 3px 12px;
+  margin: 16px 0 0 0;
+
+  &:hover {
+    background-color: var(--teal-blue-100, #0898b5);
+    color: #ffffff;
+  }
 }
