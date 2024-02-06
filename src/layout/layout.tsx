@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 export default function Layout(props: {
   childrenDev: React.ReactNode;
   childrenCompany: React.ReactNode;
+  backto?: string;
+  backToRoute?: string;
 }) {
   const { user } = useAuth();
   const router = useRouter();
@@ -39,8 +41,8 @@ export default function Layout(props: {
           typeof user !== "string" && (
             <Sidebar
               user={user!}
-              backTo={"Voltar para Tasks"}
-              backToRoute="/tasks"
+              backTo={props.backto}
+              backToRoute={props.backToRoute}
             >
               {user.level === userType.developer
                 ? props.childrenDev
