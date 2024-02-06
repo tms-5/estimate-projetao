@@ -1,5 +1,6 @@
 "use client";
 import { useAuth } from "@/context/AuthContext";
+import NotAllowed from "@/lib/components/appComponents/noPermission/NotAllowed";
 import Sidebar from "@/lib/components/sidebar/Sidebar";
 import { userType } from "@/store/enum";
 import { isAuthenticated } from "@/store/main";
@@ -9,6 +10,8 @@ import { useEffect, useState } from "react";
 export default function Layout(props: {
   childrenDev: React.ReactNode;
   childrenCompany: React.ReactNode;
+  devHasntAccess?: boolean;
+  companyHasntAccess?: boolean;
   backto?: string;
   backToRoute?: string;
 }) {
@@ -36,20 +39,22 @@ export default function Layout(props: {
 
   return (
     <div id="Layout">
-      {isAuthenticated()
-        ? user &&
-          typeof user !== "string" && (
-            <Sidebar
-              user={user!}
-              backTo={props.backto}
-              backToRoute={props.backToRoute}
-            >
-              {user.level === userType.developer
-                ? props.childrenDev
-                : props.childrenCompany}
-            </Sidebar>
-          )
-        : null}
+      {props.devHasntAccess || props.companyHasntAccess ? (
+        <NotAllowed />
+      ) : isAuthenticated() ? (
+        user &&
+        typeof user !== "string" && (
+          <Sidebar
+            user={user!}
+            backTo={props.backto}
+            backToRoute={props.backToRoute}
+          >
+            {user.level === userType.developer
+              ? props.childrenDev
+              : props.childrenCompany}
+          </Sidebar>
+        )
+      ) : null}
     </div>
   );
 }
