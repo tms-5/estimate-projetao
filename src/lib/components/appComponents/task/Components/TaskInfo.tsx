@@ -3,12 +3,14 @@ import { Histogram } from "@/lib/components/charts/Histogram/Histogram";
 import { seniorityType } from "@/store/enum";
 import { useEffect, useState } from "react";
 import TaskComment from "./TaskComment";
+import HistogramSeniority from "./HistogramSeniority";
 
 export default function TaskInfo() {
   let TaskComments = [
     {
+      id: "01",
       user_name: "Gabriela Alves",
-      created_at: "2024-02-03T02:23:41.435854",
+      created_at: new Date("2024-02-03"),
       level: seniorityType.sr,
       framework: ["React"],
       libs: ["Redux", "Formik"],
@@ -18,6 +20,20 @@ export default function TaskInfo() {
         "Pensem na estrutura completa e possíveis alterações por parte do projeto. Tenham em mente que o projeto pode mudar, então sempre considerem produtos escaláveis e códigos genéricos e reutilizáveis.",
       estimated_time: 10,
       real_time: 8.5,
+    },
+    {
+      id: "02",
+      user_name: "Justino Santos",
+      created_at: new Date("2024-01-15"),
+      level: seniorityType.sr,
+      framework: ["Svelte"],
+      libs: ["Svelte-Formik"],
+      problems:
+        "Poucas libs disponíveis para Svelte, tive que criar um componente para a validação de senha, pois não encontrei nenhuma lib que fizesse isso.",
+      sugestions:
+        "Acho que a empresa deveria investir mais em Svelte, pois é uma tecnologia que está crescendo muito e tem um grande potencial. Acredito que a empresa poderia se destacar no mercado se investisse mais nessa tecnologia.",
+      estimated_time: 16,
+      real_time: 12,
     },
   ];
 
@@ -73,71 +89,38 @@ export default function TaskInfo() {
   }, []);
   return (
     <>
-      <p className="f-06 fw-700 c-teal-blue-100 mt-2r">
+      <p className="f-07 fw-700 c-teal-blue-100 mt-2r">
         INFORMAÇÕES ADICIONAIS
       </p>
-      <p className="f-07 fw-700">Requisitos ou caso de uso:</p>
-      <ul className="f-07">
+      <p className="f-08 fw-700">Requisitos ou caso de uso:</p>
+      <ul className="f-08">
         {TaskData.requirements.map((item, index) => {
           return <li key={index}>{item}</li>;
         })}
       </ul>
 
-      <div className="d-flex justify-s-b blur-histogram mt-2r mr-2r">
-        <div>
-          <Histogram
-            data={TaskData.histogram_junior}
-            width={size}
-            height={300}
-          />
-          <p className="f-07 fw-700 c-teal-blue-100 m-0 uppercase">
-            {seniorityType.jr}
-          </p>
-          <p className="f-08 m-0">
-            <strong>Tempo médio utilizado: </strong>
-            {TaskData.histogram_avg_junior}
-          </p>
-          <p className="f-08 m-0">
-            <strong>Tempo médio estimado: </strong>
-            {TaskData.estimated_avg_junior}
-          </p>
-        </div>
-        <div>
-          <Histogram
-            data={TaskData.histogram_pleno}
-            width={size}
-            height={300}
-          />{" "}
-          <p className="f-07 fw-700 c-teal-blue-100 m-0 uppercase">
-            {seniorityType.pl}
-          </p>
-          <p className="f-08 m-0">
-            <strong>Tempo médio utilizado: </strong>
-            {TaskData.histogram_avg_pleno}
-          </p>
-          <p className="f-08 m-0">
-            <strong>Tempo médio estimado: </strong>
-            {TaskData.estimated_avg_pleno}
-          </p>
-        </div>
-        <div>
-          <Histogram
-            data={TaskData.histogram_senior}
-            width={size}
-            height={300}
-          />{" "}
-          <p className="f-07 fw-700 c-teal-blue-100 m-0 uppercase">
-            {seniorityType.sr}
-          </p>
-          <p className="f-08 m-0">
-            <strong>Tempo médio utilizado: </strong>
-            {TaskData.histogram_avg_senior}
-          </p>
-          <p className="f-08 m-0">
-            <strong>Tempo médio estimado: </strong>
-            {TaskData.estimated_avg_senior}
-          </p>
-        </div>
+      <div className="d-flex justify-s-b mt-2r mr-2r mb-2r">
+        <HistogramSeniority
+          size={size}
+          seniority={seniorityType.jr}
+          data={TaskData.histogram_junior}
+          real_time={TaskData.histogram_avg_junior}
+          estimated_time={TaskData.estimated_avg_junior}
+        />
+        <HistogramSeniority
+          size={size}
+          seniority={seniorityType.pl}
+          data={TaskData.histogram_junior}
+          real_time={TaskData.histogram_avg_pleno}
+          estimated_time={TaskData.estimated_avg_pleno}
+        />
+        <HistogramSeniority
+          size={size}
+          seniority={seniorityType.sr}
+          data={TaskData.histogram_senior}
+          real_time={TaskData.histogram_avg_senior}
+          estimated_time={TaskData.estimated_avg_senior}
+        />
       </div>
 
       {TaskComments.map((comment, index) => {
