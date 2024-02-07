@@ -39,22 +39,29 @@ export default function Layout(props: {
 
   return (
     <div id="Layout">
-      {props.devHasntAccess || props.companyHasntAccess ? (
-        <NotAllowed />
-      ) : isAuthenticated() ? (
-        user &&
-        typeof user !== "string" && (
-          <Sidebar
-            user={user!}
-            backTo={props.backto}
-            backToRoute={props.backToRoute}
-          >
-            {user.level === userType.developer
-              ? props.childrenDev
-              : props.childrenCompany}
-          </Sidebar>
-        )
-      ) : null}
+      {isAuthenticated()
+        ? user &&
+          typeof user !== "string" && (
+            <>
+              {props.devHasntAccess && user.level === userType.developer ? (
+                <NotAllowed />
+              ) : props.companyHasntAccess &&
+                user.level === userType.company ? (
+                <NotAllowed />
+              ) : (
+                <Sidebar
+                  user={user}
+                  backTo={props.backto}
+                  backToRoute={props.backToRoute}
+                >
+                  {user.level === userType.developer
+                    ? props.childrenDev
+                    : props.childrenCompany}
+                </Sidebar>
+              )}
+            </>
+          )
+        : null}
     </div>
   );
 }
