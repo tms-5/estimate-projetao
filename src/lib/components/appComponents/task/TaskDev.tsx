@@ -7,9 +7,9 @@ export default function TaskDev() {
     console.log(searchTerm);
   }
   let headers = [
-    { name: "Nome", value: "name" },
-    { name: "Tecnologia", value: "tecnology" },
-    { name: "Biblioteca", value: "library" },
+    { value: "Nome", key: "name" },
+    { value: "Tecnologia", key: "tecnology" },
+    { value: "Biblioteca", key: "library" },
   ];
 
   let data = [
@@ -39,6 +39,7 @@ export default function TaskDev() {
         headers={headers}
         data={data}
         hasFilters={true}
+        hiddenFilters={false}
         FilterComponent={TaskFilter}
       />
     </>
