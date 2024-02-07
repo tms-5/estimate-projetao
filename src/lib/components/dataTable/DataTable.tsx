@@ -1,37 +1,110 @@
-import { Key } from "react";
+import React, { useState } from "react";
+import Image from "next/image";
+import DoubleArrow from "@/lib/assets/icon/double-arrow.png";
+
+interface FilterProps {
+  functionFilter: (key: string, value: string) => void;
+}
 
 export default function DataTable({
   headers,
   data,
+  hasFilters,
+  hiddenFilters,
+  FilterComponent,
 }: {
   headers: { name: string; value: string }[];
   data: any[];
+  hasFilters?: boolean;
+  hiddenFilters?: boolean;
+  FilterComponent?: React.ElementType<FilterProps>;
 }) {
+  const [filterValues, setFilterValues] = useState<{ [key: string]: string }>(
+    {}
+  );
+
+  interface FilterAsProps {
+    filter: React.ReactNode;
+  }
+
+  // const handleFilterChange = (key: string, value: string) => {
+  //   setFilterValues((prev) => ({ ...prev, [key]: value }));
+  // };
+
+  function handleFilterChange(key: string, value: string) {
+    console.log(key, value);
+  }
+
+  // Filtra os dados com base nos valores dos filtros
+  const filteredData = data.filter((row) =>
+    Object.entries(filterValues).every(([key, value]) =>
+      row[key].toString().toLowerCase().includes(value.toLowerCase())
+    )
+  );
+
+  const FilterAsProps: React.FC<FilterAsProps> = ({ filter }) => {
+    return <>{filter}</>;
+  };
+
   return (
-    <div className="table-container mt-1r mb-1r">
-      <div className="mb-1r">Itens ({data.length})</div>
-      <table className="w-web">
-        <thead>
-          <tr>
+    <>
+      {hasFilters && (
+        <>
+          {FilterComponent && (
+            <FilterComponent functionFilter={handleFilterChange} />
+          )}
+          <div className="d-flex align-items-center mt-1r">
+            <hr className="line-hidden-filter-table" />
+            <div className="circle-hidden-filter-table">
+              <Image
+                src={DoubleArrow}
+                alt="Double arrow"
+                className="svg-to-blue"
+                width={15}
+              />
+            </div>
+            <hr className="line-hidden-filter-table" />
+          </div>
+          {/* <div className="filters-container">
             {headers.map((header) => (
-              <th key={header.value} className="f-07 text-start fw-500 pb-1">
-                {header.name}
-              </th>
+              <input
+                key={header.value}
+                type="text"
+                placeholder={`Filtrar por ${header.name}`}
+                value={filterValues[header.value] || ""}
+                onChange={(e) =>
+                  handleFilterChange(header.value, e.target.value)
+                }
+              />
             ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row: any, index: Key) => (
-            <tr key={index}>
+          </div> */}
+        </>
+      )}
+      <div className="table-container mt-1 mb-1r">
+        <div className="mb-1r">Itens ({filteredData.length})</div>
+        <table className="w-web">
+          <thead>
+            <tr>
               {headers.map((header) => (
-                <td key={header.value} className="f-07">
-                  {row[header.value]}
-                </td>
+                <th key={header.value} className="f-07 text-start fw-500 pb-1">
+                  {header.name}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {filteredData.map((row: any, index: number) => (
+              <tr key={index}>
+                {headers.map((header) => (
+                  <td key={header.value} className="f-07">
+                    {row[header.value]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
