@@ -7,6 +7,7 @@ export default function Contributions() {
       backto="Voltar para Tasks"
       backToRoute="/tasks"
       childrenDev={<TaskContributions />}
+      devHasntAccess={false}
       companyHasntAccess={true}
       childrenCompany={<></>}
     />
