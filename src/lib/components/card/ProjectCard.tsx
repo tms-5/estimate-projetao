@@ -3,7 +3,6 @@ export default function ProjectCard(props: {
   tasksDone: number;
   tasksTotal: number;
   deadline?: number;
-  footer?: React.ReactNode;
   class?: string;
 }) {
 
@@ -17,7 +16,6 @@ export default function ProjectCard(props: {
       <div style={{ display: 'flex', justifyContent: "flex-end", marginTop: '-16px'}}>
         <p style={{ fontSize: '16px', color: '#000', marginRight: '16px'}}>{percentageDone}%</p>
       </div>
-      {props.footer}
     </div>
   );
 }

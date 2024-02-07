@@ -1,3 +1,4 @@
+import FilterNav from "../../FilterNav";
 import Button from "../../button/Button";
 import Card from "../../card/Card";
 import ProjectCard from "../../card/ProjectCard";
@@ -43,6 +44,7 @@ export default function ProjectDev() {
             color: '#FFF', 
             borderRadius: '8px', 
             transition: 'background-color 0.3s ease',
+            boxShadow: 'none',
           }}
         >
           Visualizar ofertas
@@ -59,11 +61,12 @@ export default function ProjectDev() {
         <ProjectCard deadline={7} header={'undefined'} tasksTotal={10} tasksDone={5}/>
       </div>
 
-      <div>
-        <button>todos os projetos</button>
-        <button>finalizados</button>
-        <button>em andamento</button>
-        <DataTable headers={headers} data={data} />
+      <div style={{ marginTop: '40px' }}>
+        <FilterNav 
+          allProjects={<DataTable headers={headers} data={data} />} 
+          finishedProjects={<DataTable headers={headers} data={data} />} 
+          onGoingProjects={<DataTable headers={headers} data={data} />}
+        />
       </div>
     </>       
   );
