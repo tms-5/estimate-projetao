@@ -58,6 +58,11 @@ div {
   background-color: $gray-5;
 }
 
+.svg-to-blue {
+  filter: invert(44%) sepia(83%) saturate(2317%) hue-rotate(159deg)
+    brightness(90%) contrast(94%);
+}
+
 /*Position*/
 .p-absolute {
   position: absolute;
