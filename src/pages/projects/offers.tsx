@@ -8,6 +8,8 @@ export default function Offers() {
     <Layout
       childrenDev={<OffersProjects />}
       childrenCompany={<ProjectCompany />}
+      backto="Voltar para Projetos"
+      backToRoute="/projects"
       // companyHasntAccess={true}
     />
   );

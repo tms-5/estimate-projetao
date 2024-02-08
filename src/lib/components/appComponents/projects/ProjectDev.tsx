@@ -1,3 +1,4 @@
+import Link from "next/link";
 import FilterNav from "../../FilterNav";
 import Button from "../../button/Button";
 import Card from "../../card/Card";
@@ -67,17 +68,20 @@ export default function ProjectDev() {
     <>
       <PageTitle title="PROJETOS" subTitle="" />
       <div style={{ display: 'flex', justifyContent: 'end' }}>
-        <button 
-          style={{ 
-            background: '#0898B5', 
-            color: '#FFF', 
-            borderRadius: '8px', 
-            transition: 'background-color 0.3s ease',
-            boxShadow: 'none',
-          }}
-        >
-          Visualizar ofertas
-        </button>
+        <Link href={'/projects/offers'}>
+          <button 
+            style={{ 
+              background: '#0898B5', 
+              color: '#FFF', 
+              borderRadius: '8px', 
+              transition: 'background-color 0.3s ease',
+              boxShadow: 'none',
+              marginRight: '32px',
+            }}
+          >
+            Visualizar ofertas
+          </button>
+        </Link>
       </div>
 
       <p>Em andamento</p>
