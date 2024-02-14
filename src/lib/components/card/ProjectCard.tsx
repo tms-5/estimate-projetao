@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function ProjectCard(props: {
@@ -8,6 +9,7 @@ export default function ProjectCard(props: {
   class?: string;
   deadlineDate?: string;
   technology?: string;
+  linkToOffer?: () => void;
 }) {
   const [percentage, setPercentage] = useState<number>(0);
 
@@ -25,7 +27,7 @@ export default function ProjectCard(props: {
   }, []);
 
   return (
-    <div className={props.class ?? "card-default"} style={{ width: '32%', borderTop: '16px solid #1C2664' }}>
+    <div className={props.class ?? "card-default"} style={{ width: '32%', borderTop: '16px solid #1C2664' }} onClick={props.linkToOffer}>
       <h3 style={{ marginLeft: '16px' }}>#{props.header}</h3>
       {props.deadline ? (
           <>
@@ -37,7 +39,7 @@ export default function ProjectCard(props: {
           </>
         )
       : (
-          <>
+          <div style={{ cursor: 'pointer' }}>
             <p style={{ marginLeft: '16px', fontSize: '16px', color: '#757575', marginBottom: '-10px' }}>
               <strong>Deadline: </strong> {props.deadlineDate}
             </p>
@@ -47,7 +49,7 @@ export default function ProjectCard(props: {
             <p style={{ marginLeft: '16px', fontSize: '16px', color: '#757575' }}> 
               <strong>Tasks: </strong> {props.tasksTotal}
             </p>
-          </>
+          </div>
         )
       }
     </div>

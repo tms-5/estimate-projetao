@@ -1,7 +1,9 @@
+import { useRouter } from "next/router";
 import ProjectCard from "../../card/ProjectCard";
 import PageTitle from "../../pageTitle/PageTitle";
 
 type OfferDataType = {
+  id: number;
   header: string;
   deadlineDate: string;
   technology: string;
@@ -9,20 +11,29 @@ type OfferDataType = {
 };
 
 export default function OffersProjects() {
+  const router = useRouter();
+
+  const handleNavigation = (offerId: number) => {
+    router.push(`/projects/offers/${offerId}`);
+  };
+
   let dataNewOffers: OfferDataType[] = [
     {
+      id: 1,
       header: 'proposta nova 1',
       deadlineDate: '17/10/2024',
       technology: 'NextJs',
       taskTotal: 2,
     },
     {
+      id: 2,
       header: 'proposta nova 2',
       deadlineDate: '17/10/2024',
       technology: 'NextJs',
       taskTotal: 2,
     },
     {
+      id: 3,
       header: 'proposta nova 3',
       deadlineDate: '17/10/2024',
       technology: 'NextJs',
@@ -32,18 +43,21 @@ export default function OffersProjects() {
 
   let dataOldOffers: OfferDataType[] = [
     {
+      id: 4,
       header: 'proposta velha 1',
       deadlineDate: '17/10/2024',
       technology: 'NextJs',
       taskTotal: 2,
     },
     {
+      id: 5,
       header: 'proposta velha 2',
       deadlineDate: '17/10/2024',
       technology: 'NextJs',
       taskTotal: 2,
     },
     {
+      id: 6,
       header: 'proposta velha 3',
       deadlineDate: '17/10/2024',
       technology: 'NextJs',
@@ -53,12 +67,14 @@ export default function OffersProjects() {
 
   let dataDeniedOffers: OfferDataType[] = [
     {
+      id: 7,
       header: 'proposta recusada 1',
       deadlineDate: '17/10/2024',
       technology: 'NextJs',
       taskTotal: 2,
     },
     {
+      id: 8,
       header: 'proposta recusada 2',
       deadlineDate: '17/10/2024',
       technology: 'NextJs',
@@ -79,7 +95,8 @@ export default function OffersProjects() {
               header={offer.header} 
               deadlineDate={offer.deadlineDate} 
               technology={offer.technology} 
-              tasksTotal={offer.taskTotal} 
+              tasksTotal={offer.taskTotal}
+              linkToOffer={() => handleNavigation(offer.id)} 
             />
           ))}
         </div>
@@ -93,7 +110,8 @@ export default function OffersProjects() {
               header={offer.header} 
               deadlineDate={offer.deadlineDate} 
               technology={offer.technology} 
-              tasksTotal={offer.taskTotal} 
+              tasksTotal={offer.taskTotal}
+              linkToOffer={() => handleNavigation(offer.id)}
             />
           ))}
         </div>
@@ -107,7 +125,8 @@ export default function OffersProjects() {
               header={offer.header} 
               deadlineDate={offer.deadlineDate} 
               technology={offer.technology} 
-              tasksTotal={offer.taskTotal} 
+              tasksTotal={offer.taskTotal}
+              linkToOffer={() => handleNavigation(offer.id)}
             />
           ))}
         </div>
