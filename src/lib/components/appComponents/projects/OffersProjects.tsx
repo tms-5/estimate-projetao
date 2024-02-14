@@ -74,7 +74,13 @@ export default function OffersProjects() {
         <hr style={{marginTop: '-16px', width: '8%', marginLeft: '8px', borderColor: '#1A3B7C', marginBottom: '24px'}} />
         <div style={{ display: 'flex', flexWrap: 'wrap',  gap: '16px'}}>
           {dataNewOffers.map((offer: OfferDataType) => (
-            <ProjectCard header={offer.header} deadlineDate={offer.deadlineDate} technology={offer.technology} tasksTotal={offer.taskTotal} />
+            <ProjectCard 
+              key={Math.random()} 
+              header={offer.header} 
+              deadlineDate={offer.deadlineDate} 
+              technology={offer.technology} 
+              tasksTotal={offer.taskTotal} 
+            />
           ))}
         </div>
 
@@ -82,7 +88,13 @@ export default function OffersProjects() {
         <hr style={{marginTop: '-16px', width: '8%', marginLeft: '8px', borderColor: '#1A3B7C', marginBottom: '24px'}} />
         <div style={{ display: 'flex', flexWrap: 'wrap',  gap: '16px'}}>
           {dataOldOffers.map((offer: OfferDataType) => (
-            <ProjectCard header={offer.header} deadlineDate={offer.deadlineDate} technology={offer.technology} tasksTotal={offer.taskTotal} />
+            <ProjectCard 
+              key={Math.random()} 
+              header={offer.header} 
+              deadlineDate={offer.deadlineDate} 
+              technology={offer.technology} 
+              tasksTotal={offer.taskTotal} 
+            />
           ))}
         </div>
 
@@ -90,7 +102,13 @@ export default function OffersProjects() {
         <hr style={{marginTop: '-16px', width: '8%', marginLeft: '8px', borderColor: '#1A3B7C', marginBottom: '24px'}} />
         <div style={{ display: 'flex', flexWrap: 'wrap',  gap: '16px', marginBottom: '80px'}}>
           {dataDeniedOffers.map((offer: OfferDataType) => (
-            <ProjectCard header={offer.header} deadlineDate={offer.deadlineDate} technology={offer.technology} tasksTotal={offer.taskTotal} />
+            <ProjectCard 
+              key={Math.random()} 
+              header={offer.header} 
+              deadlineDate={offer.deadlineDate} 
+              technology={offer.technology} 
+              tasksTotal={offer.taskTotal} 
+            />
           ))}
         </div>
       </>
