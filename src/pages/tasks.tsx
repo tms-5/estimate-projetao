@@ -12,7 +12,6 @@ function TasksPage() {
         childrenDev={<TaskDev />}
         childrenCompany={<TaskCompany />}
       />
-      ;
     </>
   );
 }

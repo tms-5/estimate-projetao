@@ -1,36 +1,20 @@
+import { useRouter } from "next/router";
+import Button from "../../button/Button";
 import DataTable from "../../dataTable/DataTable";
 import PageTitle from "../../pageTitle/PageTitle";
-import ChipsArray from "../../selection/SelectionChips";
-import * as React from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { TaskFilter } from "./Components/TaskFilter";
 
 export default function TaskDev() {
+  const router = useRouter();
   function onSearch(searchTerm: string) {
     console.log(searchTerm);
   }
-  const [technology, setTechnology] = React.useState('');
-  const [taskAction, setTaskAction] = React.useState('');
-  const [component, setComponent] = React.useState('');
-  const [libs, setLibs] = React.useState<Array<string>>([]);
 
-  const handleChangeTechnology = (event: SelectChangeEvent) => {
-    setTechnology(event.target.value);
-  };
-
-  const handleChangeTaskAction = (event: SelectChangeEvent) => {
-    setTaskAction(event.target.value);
-  }
-
-  const handleChangeComponent = (event: SelectChangeEvent) => {
-    setComponent(event.target.value);
-  }
 
   let headers = [
-    { name: "Nome", value: "name" },
-    { name: "Tecnologia", value: "tecnology" },
-    { name: "Biblioteca", value: "library" },
+    { value: "Nome", key: "name" },
+    { value: "Tecnologia", key: "tecnology" },
+    { value: "Biblioteca", key: "library" },
   ];
 
   let data = [
@@ -54,67 +38,22 @@ export default function TaskDev() {
   return (
     <>
       <PageTitle title="TASKS" subTitle="" />
-      <div className="mt-1r" />
-      <div className="d-flex mt-1r">
-        <div className="d-grid w-50 mr-2r">
-          <div className="f-07 fw-500 mb-1">Ação da task:</div>
-          <FormControl sx={{ maxHeight: 36, height: 36 }} size="small">
-            <Select
-              value={taskAction}
-              onChange={handleChangeTaskAction}
-              displayEmpty
-              size="small"
-              inputProps={{ 'aria-label': 'Without label', }}
-              MenuProps={{ sx: { maxHeight: 500, fontSize: '0.7rem' } }}
-              sx={{ maxHeight: 36, height: 36, fontSize: '0.7rem' }}
-              placeholder="Tecnologia"
-            >
-              <MenuItem sx={{ fontSize: '0.7rem' }}>lorem ipsum</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
-        <div className="d-grid w-50">
-          <div className="f-07 fw-500 mb-1">Componente de manipulação:</div>
-          <FormControl sx={{ maxHeight: 36, height: 36 }} size="small">
-            <Select
-              value={component}
-              onChange={handleChangeComponent}
-              displayEmpty
-              size="small"
-              inputProps={{ 'aria-label': 'Without label', }}
-              MenuProps={{ sx: { maxHeight: 500, fontSize: '0.7rem' } }}
-              sx={{ maxHeight: 36, height: 36, fontSize: '0.7rem' }}
-              placeholder="Tecnologia"
-            >
-              <MenuItem sx={{ fontSize: '0.7rem' }}>lorem ipsum</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
+      <div className="mt-1r text-end">
+        <Button
+          text={"Contribuições"}
+          style="secondary"
+          class="mr-1"
+          onClick={() => router.push("/tasks/contributions")}
+        />
+        <Button text={"Cadastrar task"} style="primary" />
       </div>
-      <div className="d-flex mt-1r   justify-flex-start align-start">
-        <div className="d-grid w-50 mr-2r">
-          <div className="f-07 fw-500 mb-1">Tecnologia:</div>
-          <FormControl sx={{ maxHeight: 36, height: 36 }} size="small">
-            <Select
-              value={technology}
-              onChange={handleChangeTechnology}
-              displayEmpty
-              size="small"
-              inputProps={{ 'aria-label': 'Without label', }}
-              MenuProps={{ sx: { maxHeight: 500, fontSize: '0.7rem' } }}
-              sx={{ maxHeight: 36, height: 36, fontSize: '0.7rem' }}
-              placeholder="Tecnologia"
-            >
-              <MenuItem sx={{ fontSize: '0.7rem' }}>lorem ipsum</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
-        <div className="d-grid w-50">
-          <div className="f-07 fw-500 mb-1">Biblioteca:</div>
-          <ChipsArray onChangeValues={setLibs}/>
-        </div>
-      </div>
-      <DataTable headers={headers} data={data} />
+      <DataTable
+        headers={headers}
+        data={data}
+        hasFilters={true}
+        hiddenFilters={false}
+        FilterComponent={TaskFilter}
+      />
     </>
   );
 }
