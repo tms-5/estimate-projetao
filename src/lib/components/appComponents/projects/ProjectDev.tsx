@@ -1,14 +1,11 @@
 import Link from "next/link";
 import FilterNav from "../../FilterNav";
-import Button from "../../button/Button";
-import Card from "../../card/Card";
 import ProjectCard from "../../card/ProjectCard";
-import TaskCard from "../../card/TaskCard";
 import DataTable from "../../dataTable/DataTable";
 import PageTitle from "../../pageTitle/PageTitle";
 import { useEffect, useState } from "react";
-import getAllProjects from "@/services/ProjectServices/getAllProjects";
 import getUsersProjects from "@/services/ProjectServices/getUserProjects";
+import getTasksProject from "@/services/TaskServices/getTasksFromProjects";
 
 type DataCardType = {
   deadline: number;
@@ -23,13 +20,75 @@ export default function ProjectDev() {
   }
 
   const [projects, setProjects] = useState();
+  const [tasks, setTasks] = useState<any[]>([]);
+  const [cardsData, setCardsData] = useState<DataCardType[]>([]);
+  const [allProjects, setAllProjects] = useState<any[]>([]);
+
+  const todayDate: any = new Date();
 
   useEffect(() => {
     const handleGetUserProjects = async () => {
       try {
         const response = await getUsersProjects(1);
-        
         setProjects(response);
+
+        response.map(async (res: any) => {
+          const taskResponse = await getTasksProject(res.id);
+
+          if (tasks.length === 0) {
+            setTasks(taskResponse);
+          }
+
+          if (tasks.length !== 0) {
+            setTasks((prevValues: any) => ([{
+              ...prevValues,
+              taskResponse
+            }]));
+          }
+
+          const deadlineDate: any = new Date(res.project.date_predicted_conclusion);
+          const differenceInMilliseconds = Math.abs(deadlineDate - todayDate);
+          const differenceInDays = Math.ceil(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+
+          const taskTotal = taskResponse.length;
+          const taskDone = 1;
+
+          const projectConclusionDate = new Date(res.project.date_predicted_conclusion);
+          const day = projectConclusionDate.getDate();
+          const month = projectConclusionDate.getMonth();
+          const year = projectConclusionDate.getFullYear();
+          const formattedDate = `${day}/${month}/${year}`;
+
+          if (cardsData.length < response.length) {
+            setCardsData((prevValues: any) => ([
+              ...prevValues, {
+              deadline: differenceInDays,
+              header: res.project.name,
+              taskTotal: taskResponse.length,
+              taskDone: 0,
+              }
+            ]));
+
+            if (taskDone / taskTotal === 1) {
+              setAllProjects((prevValues: any) => ([
+                ...prevValues, {
+                  name: res.project.name,
+                  date: formattedDate,
+                  status: 'Finalizado',
+                }
+              ]));
+            } else {
+              setAllProjects((prevValues: any) => ([
+                ...prevValues, {
+                  name: res.project.name,
+                  date: formattedDate,
+                  status: 'Em andamento',
+                }
+              ]));
+            }
+          }
+        });
+
       } catch (error) {
         console.log('error', error);
       }
@@ -37,51 +96,15 @@ export default function ProjectDev() {
 
     handleGetUserProjects();
   }, []);
-  
+
+  const onGoingProjects = allProjects.filter(project => project.status === 'Em andamento');
+  const finishedProjects = allProjects.filter(project => project.status === 'Finalizado');
+
   let headers = [
     { name: "Nome", value: "name" },
     { name: "Data", value: "date" },
     { name: "Status", value: "status" },
   ];
-
-  let data = [
-    {
-      name: "Criar gráfico de pizza",
-      date: "05/10/2024",
-      status: "Finalizado",
-    },
-    {
-      name: "Criar formulário",
-      date: "05/10/2024",
-      status: "Finalizado",
-    },
-    {
-      name: "Criar tabela",
-      date: "05/10/2024",
-      status: "Finalizado",
-    },
-  ];
-
-  let cardDataEx: DataCardType[] = [
-    {
-      deadline: 1,
-      header: "Projeto 1",
-      taskTotal: 10,
-      taskDone: 1
-    },
-    {
-      deadline: 2,
-      header: "Projeto 2",
-      taskDone: 2,
-      taskTotal: 10,
-    },
-    {
-      deadline: 3,
-      header: "Projeto 3",
-      taskDone: 3,
-      taskTotal: 10,
-    },
-  ]
 
   return (
     <>
@@ -107,7 +130,7 @@ export default function ProjectDev() {
       <hr style={{marginTop: '-16px', width: '4%', marginLeft: '8px', borderColor: '#1A3B7C', marginBottom: '24px'}} />
 
       <div style={{ display: 'flex', flexWrap: 'wrap',  gap: '16px'}}>
-        {cardDataEx.map((card: DataCardType) => (
+        {cardsData.map((card: DataCardType) => (
           <ProjectCard 
             key={Math.random()} 
             deadline={card.deadline} 
@@ -120,9 +143,9 @@ export default function ProjectDev() {
 
       <div style={{ marginTop: '80px' }}>
         <FilterNav 
-          allProjects={<DataTable headers={headers} data={data} />} 
-          finishedProjects={<DataTable headers={headers} data={data} />} 
-          onGoingProjects={<DataTable headers={headers} data={data} />}
+          allProjects={<DataTable headers={headers} data={allProjects} />} 
+          finishedProjects={<DataTable headers={headers} data={finishedProjects} />} 
+          onGoingProjects={<DataTable headers={headers} data={onGoingProjects} />}
         />
       </div>
     </>       
