@@ -6,6 +6,9 @@ import ProjectCard from "../../card/ProjectCard";
 import TaskCard from "../../card/TaskCard";
 import DataTable from "../../dataTable/DataTable";
 import PageTitle from "../../pageTitle/PageTitle";
+import { useEffect, useState } from "react";
+import getAllProjects from "@/services/ProjectServices/getAllProjects";
+import getUsersProjects from "@/services/ProjectServices/getUserProjects";
 
 type DataCardType = {
   deadline: number;
@@ -18,6 +21,22 @@ export default function ProjectDev() {
     function onSearch(searchTerm: string) {
     console.log(searchTerm);
   }
+
+  const [projects, setProjects] = useState();
+
+  useEffect(() => {
+    const handleGetUserProjects = async () => {
+      try {
+        const response = await getUsersProjects(1);
+        
+        setProjects(response);
+      } catch (error) {
+        console.log('error', error);
+      }
+    };
+
+    handleGetUserProjects();
+  }, []);
   
   let headers = [
     { name: "Nome", value: "name" },
