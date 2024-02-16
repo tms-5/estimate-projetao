@@ -65,7 +65,7 @@ export default function ProjectDev() {
               deadline: differenceInDays,
               header: res.project.name,
               taskTotal: taskResponse.length,
-              taskDone: 0,
+              taskDone: taskDone,
               }
             ]));
 
@@ -109,45 +109,51 @@ export default function ProjectDev() {
   return (
     <>
       <PageTitle title="PROJETOS" subTitle="" />
-      <div style={{ display: 'flex', justifyContent: 'end' }}>
-        <Link href={'/projects/offers'}>
-          <button 
-            style={{ 
-              background: '#0898B5', 
-              color: '#FFF', 
-              borderRadius: '8px', 
-              transition: 'background-color 0.3s ease',
-              boxShadow: 'none',
-              marginRight: '32px',
-            }}
-          >
-            Visualizar ofertas
-          </button>
-        </Link>
-      </div>
 
-      <p>Em andamento</p>
-      <hr style={{marginTop: '-16px', width: '4%', marginLeft: '8px', borderColor: '#1A3B7C', marginBottom: '24px'}} />
-
-      <div style={{ display: 'flex', flexWrap: 'wrap',  gap: '16px'}}>
-        {cardsData.map((card: DataCardType) => (
-          <ProjectCard 
-            key={Math.random()} 
-            deadline={card.deadline} 
-            header={card.header} 
-            tasksTotal={card.taskTotal} 
-            tasksDone={card.taskDone}
-          />
-        ))}
-      </div>
-
-      <div style={{ marginTop: '80px' }}>
-        <FilterNav 
-          allProjects={<DataTable headers={headers} data={allProjects} />} 
-          finishedProjects={<DataTable headers={headers} data={finishedProjects} />} 
-          onGoingProjects={<DataTable headers={headers} data={onGoingProjects} />}
-        />
-      </div>
+      {cardsData.length ? 
+        <>
+          <div style={{ display: 'flex', justifyContent: 'end' }}>
+            <Link href={'/projects/offers'}>
+              <button 
+                style={{ 
+                  background: '#0898B5', 
+                  color: '#FFF', 
+                  borderRadius: '8px', 
+                  transition: 'background-color 0.3s ease',
+                  boxShadow: 'none',
+                  marginRight: '32px',
+                }}
+              >
+                Visualizar ofertas
+              </button>
+            </Link>
+          </div>
+          <p>Em andamento</p>
+          <hr style={{marginTop: '-16px', width: '4%', marginLeft: '8px', borderColor: '#1A3B7C', marginBottom: '24px'}} />
+          <div style={{ display: 'flex', flexWrap: 'wrap',  gap: '16px'}}>
+            {cardsData.map((card: DataCardType) => (
+              <ProjectCard 
+                key={Math.random()} 
+                deadline={card.deadline} 
+                header={card.header} 
+                tasksTotal={card.taskTotal} 
+                tasksDone={card.taskDone}
+              />
+            ))}
+          </div>
+          <div style={{ marginTop: '80px' }}>
+            <FilterNav 
+              allProjects={<DataTable headers={headers} data={allProjects} />} 
+              finishedProjects={<DataTable headers={headers} data={finishedProjects} />} 
+              onGoingProjects={<DataTable headers={headers} data={onGoingProjects} />}
+            />
+          </div>
+        </>
+        : 
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70vh' }}>
+          <p>Nenhum projeto cadastraso</p>
+        </div>
+      }
     </>       
   );
 }
