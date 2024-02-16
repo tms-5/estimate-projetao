@@ -1,6 +1,9 @@
 import { useRouter } from "next/router";
 import ProjectCard from "../../card/ProjectCard";
 import PageTitle from "../../pageTitle/PageTitle";
+import { useEffect, useState } from "react";
+import getUsersProjects from "@/services/ProjectServices/getUserProjects";
+import getTasksProject from "@/services/TaskServices/getTasksFromProjects";
 
 type OfferDataType = {
   id: number;
@@ -13,74 +16,84 @@ type OfferDataType = {
 export default function OffersProjects() {
   const router = useRouter();
 
+  const [projects, setProjects] = useState();
+  const [newOffers, setNewOffers] = useState<OfferDataType[]>([]);
+  const [oldOffers, setOldOffers] = useState<OfferDataType[]>([]);
+  const [deniedOffers, setDeniedOffers] = useState<OfferDataType[]>([]);
+
+  const todayDate: any = new Date();
+
+  // mudar isso aqui para pegar do login do usuario
+  const userId = 1;
+
+  useEffect(() => {
+    const handleGetProjectsByUser = async () => {
+      try {
+        const userProjects = await getUsersProjects(userId);
+
+        userProjects.map(async (project: any) => {
+          const taskResponse = await getTasksProject(project.project.id);
+
+          const predictedConclusionDate = project.project.date_predicted_conclusion;
+          const deadline = predictedConclusionDate.split('T')[0].split('-');
+          const formattedDate = `${deadline[2]}/${deadline[1]}/${deadline[0]}`;
+          
+          const deadlineData: any = new Date(predictedConclusionDate.split('T')[0]);
+          const differenceInMilliseconds = Math.abs(deadlineData - todayDate);
+          const differenceInDays = Math.ceil(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+
+          if (differenceInDays <= 10 && newOffers.length < userProjects.length) {
+            setNewOffers((prevValues: any) => ([
+              ...prevValues,
+              {
+                id: project.project.id,
+                header: project.project.name,
+                deadlineDate: formattedDate,
+                taskTotal: taskResponse.length,
+                technology: project.project.stack,
+              }
+            ]));
+          }
+
+          if (differenceInDays > 10 && oldOffers.length < userProjects.length) {
+            setOldOffers((prevValues: any) => ([
+              ...prevValues,
+              {
+                id: project.project.id,
+                header: project.project.name,
+                deadlineDate: formattedDate,
+                taskTotal: taskResponse.length,
+                technology: project.project.stack,
+              }
+            ]));
+          }
+
+          if (differenceInDays > 100 && deniedOffers.length < userProjects.length) {
+            setDeniedOffers((prevValues: any) => ([
+              ...prevValues,
+              {
+                id: project.project.id,
+                header: project.project.name,
+                deadlineDate: formattedDate,
+                taskTotal: taskResponse.length,
+                technology: project.project.stack,
+              }
+            ]));
+          }
+        });
+
+        setProjects(userProjects);
+      } catch (error) {
+        console.log(error);
+      };
+    };
+
+    handleGetProjectsByUser();
+  }, []);
+
   const handleNavigation = (offerId: number) => {
     router.push(`/projects/offers/${offerId}`);
   };
-
-  let dataNewOffers: OfferDataType[] = [
-    {
-      id: 1,
-      header: 'proposta nova 1',
-      deadlineDate: '17/10/2024',
-      technology: 'NextJs',
-      taskTotal: 2,
-    },
-    {
-      id: 2,
-      header: 'proposta nova 2',
-      deadlineDate: '17/10/2024',
-      technology: 'NextJs',
-      taskTotal: 2,
-    },
-    {
-      id: 3,
-      header: 'proposta nova 3',
-      deadlineDate: '17/10/2024',
-      technology: 'NextJs',
-      taskTotal: 2,
-    },
-  ];
-
-  let dataOldOffers: OfferDataType[] = [
-    {
-      id: 4,
-      header: 'proposta velha 1',
-      deadlineDate: '17/10/2024',
-      technology: 'NextJs',
-      taskTotal: 2,
-    },
-    {
-      id: 5,
-      header: 'proposta velha 2',
-      deadlineDate: '17/10/2024',
-      technology: 'NextJs',
-      taskTotal: 2,
-    },
-    {
-      id: 6,
-      header: 'proposta velha 3',
-      deadlineDate: '17/10/2024',
-      technology: 'NextJs',
-      taskTotal: 2,
-    },
-  ];
-
-  let dataDeniedOffers: OfferDataType[] = [
-    {
-      id: 7,
-      header: 'proposta recusada 1',
-      deadlineDate: '17/10/2024',
-      technology: 'NextJs',
-      taskTotal: 2,
-    },
-    {
-      id: 8,
-      header: 'proposta recusada 2',
-      deadlineDate: '17/10/2024',
-      technology: 'NextJs',
-      taskTotal: 2,
-    },
-  ];
 
   return (
       <>
@@ -88,48 +101,66 @@ export default function OffersProjects() {
 
         <p>Novas Ofertas</p>
         <hr style={{marginTop: '-16px', width: '8%', marginLeft: '8px', borderColor: '#1A3B7C', marginBottom: '24px'}} />
-        <div style={{ display: 'flex', flexWrap: 'wrap',  gap: '16px'}}>
-          {dataNewOffers.map((offer: OfferDataType) => (
-            <ProjectCard 
-              key={Math.random()} 
-              header={offer.header} 
-              deadlineDate={offer.deadlineDate} 
-              technology={offer.technology} 
-              tasksTotal={offer.taskTotal}
-              linkToOffer={() => handleNavigation(offer.id)} 
-            />
-          ))}
-        </div>
+        {newOffers.length ? 
+          <div style={{ display: 'flex', flexWrap: 'wrap',  gap: '16px'}}>
+            {newOffers.map((offer: OfferDataType) => (
+              <ProjectCard 
+                key={Math.random()} 
+                header={offer.header} 
+                deadlineDate={offer.deadlineDate} 
+                technology={offer.technology} 
+                tasksTotal={offer.taskTotal}
+                linkToOffer={() => handleNavigation(offer.id)} 
+              />
+            ))}
+          </div>
+        : 
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <p> Não há novas ofertas </p>
+          </div>
+        }
 
         <p style={{ marginTop: '72px' }}>Ofertas Antigas</p>
         <hr style={{marginTop: '-16px', width: '8%', marginLeft: '8px', borderColor: '#1A3B7C', marginBottom: '24px'}} />
-        <div style={{ display: 'flex', flexWrap: 'wrap',  gap: '16px'}}>
-          {dataOldOffers.map((offer: OfferDataType) => (
-            <ProjectCard 
-              key={Math.random()} 
-              header={offer.header} 
-              deadlineDate={offer.deadlineDate} 
-              technology={offer.technology} 
-              tasksTotal={offer.taskTotal}
-              linkToOffer={() => handleNavigation(offer.id)}
-            />
-          ))}
-        </div>
+        {oldOffers.length ? 
+          <div style={{ display: 'flex', flexWrap: 'wrap',  gap: '16px'}}>
+            {oldOffers.map((offer: OfferDataType) => (
+              <ProjectCard 
+                key={Math.random()} 
+                header={offer.header} 
+                deadlineDate={offer.deadlineDate} 
+                technology={offer.technology} 
+                tasksTotal={offer.taskTotal}
+                linkToOffer={() => handleNavigation(offer.id)}
+              />
+            ))}
+          </div>        
+        : 
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <p> Não há ofertas antigas </p>
+          </div>
+        }
 
         <p style={{ marginTop: '72px' }}>Ofertas Recusadas</p>
         <hr style={{marginTop: '-16px', width: '8%', marginLeft: '8px', borderColor: '#1A3B7C', marginBottom: '24px'}} />
-        <div style={{ display: 'flex', flexWrap: 'wrap',  gap: '16px', marginBottom: '80px'}}>
-          {dataDeniedOffers.map((offer: OfferDataType) => (
-            <ProjectCard 
-              key={Math.random()} 
-              header={offer.header} 
-              deadlineDate={offer.deadlineDate} 
-              technology={offer.technology} 
-              tasksTotal={offer.taskTotal}
-              linkToOffer={() => handleNavigation(offer.id)}
-            />
-          ))}
-        </div>
+        {deniedOffers.length ? 
+          <div style={{ display: 'flex', flexWrap: 'wrap',  gap: '16px', marginBottom: '80px'}}>
+            {deniedOffers.map((offer: OfferDataType) => (
+              <ProjectCard 
+                key={Math.random()} 
+                header={offer.header} 
+                deadlineDate={offer.deadlineDate} 
+                technology={offer.technology} 
+                tasksTotal={offer.taskTotal}
+                linkToOffer={() => handleNavigation(offer.id)}
+              />
+            ))}
+          </div>
+        : 
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <p> Não há ofertas recusadas </p>
+          </div>
+        }
       </>
     ) 
   }
