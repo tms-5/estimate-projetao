@@ -9,7 +9,7 @@ export default function ProjectCard(props: {
   class?: string;
   deadlineDate?: string;
   technology?: string;
-  linkToOffer?: () => void;
+  onClick?: () => void;
 }) {
   const [percentage, setPercentage] = useState<number>(0);
 
@@ -27,7 +27,7 @@ export default function ProjectCard(props: {
   }, []);
 
   return (
-    <div className={props.class ?? "card-default"} style={{ width: '32%', borderTop: '16px solid #1C2664' }} onClick={props.linkToOffer}>
+    <div className={props.class ?? "card-default"} style={{ width: '32%', borderTop: '16px solid #1C2664' }} onClick={props.onClick}>
       <h3 style={{ marginLeft: '16px' }}>#{props.header}</h3>
       {props.deadline ? (
           <>

@@ -4,27 +4,39 @@ import PageTitle from "../../pageTitle/PageTitle";
 import { useEffect, useState } from "react";
 import getUsersProjects from "@/services/ProjectServices/getUserProjects";
 import getTasksProject from "@/services/TaskServices/getTasksFromProjects";
+import useStore from "@/context/ProjectsContext";
 
-type OfferDataType = {
+export type OfferDataType = {
   id: number;
   header: string;
   deadlineDate: string;
   technology: string;
   taskTotal: number;
+  status?: string;
 };
 
 export default function OffersProjects() {
   const router = useRouter();
 
-  const [projects, setProjects] = useState();
   const [newOffers, setNewOffers] = useState<OfferDataType[]>([]);
   const [oldOffers, setOldOffers] = useState<OfferDataType[]>([]);
   const [deniedOffers, setDeniedOffers] = useState<OfferDataType[]>([]);
+  const [status, setStatus] = useState('');
+
+  const contextTest = useStore((state) => state.updateOfferState)
 
   const todayDate: any = new Date();
 
   // mudar isso aqui para pegar do login do usuario
   const userId = 1;
+
+  const verifyStatus = (total: number, done: number) => {
+    if ((done / total) === 1) {
+      return 'Finalizado';
+    } else {
+      return 'Em andamento';
+    }
+  };
 
   useEffect(() => {
     const handleGetProjectsByUser = async () => {
@@ -51,6 +63,7 @@ export default function OffersProjects() {
                 deadlineDate: formattedDate,
                 taskTotal: taskResponse.length,
                 technology: project.project.stack,
+                status: verifyStatus(taskResponse.length, 0),
               }
             ]));
           }
@@ -64,6 +77,7 @@ export default function OffersProjects() {
                 deadlineDate: formattedDate,
                 taskTotal: taskResponse.length,
                 technology: project.project.stack,
+                status: verifyStatus(taskResponse.length, 0),
               }
             ]));
           }
@@ -77,12 +91,11 @@ export default function OffersProjects() {
                 deadlineDate: formattedDate,
                 taskTotal: taskResponse.length,
                 technology: project.project.stack,
+                status: verifyStatus(taskResponse.length, 0),
               }
             ]));
           }
         });
-
-        setProjects(userProjects);
       } catch (error) {
         console.log(error);
       };
@@ -91,8 +104,12 @@ export default function OffersProjects() {
     handleGetProjectsByUser();
   }, []);
 
-  const handleNavigation = (offerId: number) => {
+  const handleNavigation = (offerId: number, offer?: any) => {
     router.push(`/projects/offers/${offerId}`);
+
+    if (offer) {
+      contextTest(offer);
+    }
   };
 
   return (
@@ -110,7 +127,7 @@ export default function OffersProjects() {
                 deadlineDate={offer.deadlineDate} 
                 technology={offer.technology} 
                 tasksTotal={offer.taskTotal}
-                linkToOffer={() => handleNavigation(offer.id)} 
+                onClick={() => handleNavigation(offer.id, offer)} 
               />
             ))}
           </div>
@@ -131,7 +148,7 @@ export default function OffersProjects() {
                 deadlineDate={offer.deadlineDate} 
                 technology={offer.technology} 
                 tasksTotal={offer.taskTotal}
-                linkToOffer={() => handleNavigation(offer.id)}
+                onClick={() => handleNavigation(offer.id)}
               />
             ))}
           </div>        
@@ -152,7 +169,7 @@ export default function OffersProjects() {
                 deadlineDate={offer.deadlineDate} 
                 technology={offer.technology} 
                 tasksTotal={offer.taskTotal}
-                linkToOffer={() => handleNavigation(offer.id)}
+                onClick={() => handleNavigation(offer.id)}
               />
             ))}
           </div>
