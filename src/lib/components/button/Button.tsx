@@ -3,7 +3,7 @@ export default function Button(props: {
   text?: any;
   value?: any;
   onClick?: () => void | any;
-  style: "primary" | "secondary" | "tertiary";
+  style?: "primary" | "secondary" | "tertiary";
 }) {
   return (
     <button

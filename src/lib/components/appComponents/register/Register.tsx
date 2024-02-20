@@ -25,19 +25,15 @@ export default function Register(props: {
           <Button
             key={item}
             text={item}
-            class={`button-checkbox w-100 text-start mb-1r ${
-              active === item ? "active" : ""
-            }`}
-            onClick={() => setActive(item)}
-          />
+            class={`button-checkbox w-100 text-start mb-1r ${active === item ? "active" : ""}`}
+            onClick={() => setActive(item)} style={"primary"}          />
         ))}
 
         <div className="d-flex mt-3r justify-s-b">
           <Button
             text={<Image src={Arrow} alt="Arrow" width={35} />}
             class="p-1 button-arrow-register"
-            onClick={() => props.setActiveType(active)}
-          />
+            onClick={() => props.setActiveType(active)} style={"primary"}          />
         </div>
       </div>
       <Link
