@@ -3,9 +3,14 @@ export default function Button(props: {
   text?: any;
   value?: any;
   onClick?: () => void | any;
+  style: "primary" | "secondary" | "tertiary";
 }) {
   return (
-    <button className={props.class} onClick={props.onClick} value={props.value}>
+    <button
+      className={`${props.class} button-${props.style}`}
+      onClick={props.onClick}
+      value={props.value}
+    >
       {props.text}
     </button>
   );
