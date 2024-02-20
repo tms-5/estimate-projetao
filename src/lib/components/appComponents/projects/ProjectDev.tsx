@@ -101,9 +101,9 @@ export default function ProjectDev() {
   const finishedProjects = allProjects.filter(project => project.status === 'Finalizado');
 
   let headers = [
-    { name: "Nome", value: "name" },
-    { name: "Data", value: "date" },
-    { name: "Status", value: "status" },
+    { value: "Nome", key: "name" },
+    { value: "Data", key: "date" },
+    { value: "Status", key: "status" },
   ];
 
   return (
