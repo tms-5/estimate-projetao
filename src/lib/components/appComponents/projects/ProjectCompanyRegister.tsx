@@ -1,6 +1,13 @@
 import Link from "next/link";
 import PageTitle from "../../pageTitle/PageTitle";
 import Input from "../../input/Input";
+import * as React from 'react';
+import ChipsArray from '@/lib/components/selection/SelectionChips';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
+import InputProjectRegister from "../../input/InputProjectRegister";
 
 export default function ProjectCompanyRegister() {
     return (
@@ -23,20 +30,22 @@ export default function ProjectCompanyRegister() {
             <p style={{ color: '#757575' }}> Descreva qual área, tecnologia e biblioteca você utilizou no processo de concepção desse projeto. </p>
           </div>
 
-          <div style={{ marginTop: '24px', width: '100%' }}>
-            <Input type={"text"} placeholder="Nome" name="oi" />
-            <input type="text" name="Nome" id="" placeholder="Nome" />
-            <input type="text" name="Senioridade" id="" placeholder="Senioridade" />
-            <input type="text" name="Área" id="" placeholder="Área" />
-            <input type="text" name="Tecnologia" id="" placeholder="Tecnologia" />
-            <input type="text" name="Bibliotecas" id="" placeholder="Bibliotecas" />
+          <div style={{ marginTop: '24px', width: '100%', display: 'flex', flexDirection: 'column' }}>
+            <InputProjectRegister name="Nome" />
+            <InputProjectRegister name="Senioridade" />
+            <InputProjectRegister name="Área" />
+            <InputProjectRegister name="Tecnologia" />
+            <p style={{ marginBottom: '4px', width: '100%'}}>Bibliotecas</p>
+            <div style={{ width: '80%' }}>
+              <ChipsArray onChangeValues={() => console.log()} />
+            </div>
           </div>
         </div>
 
-        <hr />
+        <hr style={{ marginTop: '48px', marginBottom: '48px' }} />
 
         <h3>Estrutura do Projeto</h3>
-        <p>Adicionar componentes e Atividades detalhadas</p>
+        <p style={{ color: '#757575', marginTop: '-16px', marginBottom: '32px' }}>Adicionar componentes e Atividades detalhadas</p>
         
         <div>
           <p>Adicione um novo componente +</p>
