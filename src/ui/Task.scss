@@ -1,0 +1,30 @@
+.histogram-hidden {
+  .blur-histogram {
+    filter: blur(10px);
+    opacity: 0.3;
+  }
+  .buttons-histogram {
+    left: 40%;
+    top: 40%;
+    z-index: 3;
+  }
+}
+.legend-histogram-Y-axis {
+  transform: rotate(270deg);
+  position: absolute;
+  left: -123px;
+  top: 136px;
+  font-size: 0.7rem;
+}
+
+.legend-histogram-X-axis {
+  position: absolute;
+  font-size: 0.7rem;
+  left: 63px;
+  bottom: 84px;
+}
+
+.grid-comments {
+  gap: 10px;
+}
+

@@ -65,9 +65,8 @@ export default function Login() {
             <Button
               text={"Entrar"}
               class="b-none bg-white"
-              onClick={() => validateLogin()}
-            />
-            <Button text={"Esqueceu a senha?"} class="b-none no-filter" />
+              onClick={() => validateLogin()} style={"primary"}            />
+            <Button text={"Esqueceu a senha?"} class="b-none no-filter" style={"primary"} />
           </div>
         </div>
 

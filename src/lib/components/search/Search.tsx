@@ -5,9 +5,11 @@ import Image from "next/image";
 function SearchInput({
   onSearch,
   placeholder,
+  className,
 }: {
   onSearch: Function;
   placeholder: string;
+  className?: string;
 }) {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -16,13 +18,13 @@ function SearchInput({
   };
 
   return (
-    <div className="search-div p-relative">
+    <div className={`search-div p-relative`}>
       <input
         type="text"
         placeholder={placeholder}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="search-input"
+        className={`search-input ${className ?? ""}`}
       />
       <button onClick={handleSearch}>
         <Image src={Search} alt="Search icon" width={20} />

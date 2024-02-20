@@ -25,7 +25,7 @@ function UserDropdown({ userName }: { userName: string }) {
 
   return (
     <>
-      <div className="p-relative">
+      <div className="p-relative mr-2r">
         <div
           onClick={() => setIsOpen(!isOpen)}
           className="d-flex c-pointer align-items-center"
@@ -36,7 +36,7 @@ function UserDropdown({ userName }: { userName: string }) {
             src={Arrow}
             alt="Arrow"
             width={8}
-            className={`ml-2r mr-1r ${isOpen ? `arrow-down` : "arrow-up"} blue-img`}
+            className={`ml-2r ${isOpen ? `arrow-down` : "arrow-up"} blue-img`}
           />
         </div>
 
