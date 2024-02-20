@@ -4,9 +4,11 @@ import OfferProjectByID from "@/lib/components/appComponents/projects/OfferProje
 export default function OfferById() {
   return (
     <Layout
+      backto="Voltar"
+      backToRoute="/projects/offers"
       childrenDev={<OfferProjectByID />}
       childrenCompany={<></>}
-      companyHasntAccess={true}
+      // companyHasntAccess={true}
     />
   );
 }

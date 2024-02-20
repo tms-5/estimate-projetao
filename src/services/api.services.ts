@@ -5,7 +5,8 @@ export class ApiService {
 
     constructor() {
         this.axiosInstance = axios.create({
-            baseURL: 'https://estimate-back-paula.koyeb.app',
+            // baseURL: 'https://estimate-back-paula.koyeb.app',
+            baseURL: 'http://localhost:8000',
         });
     }
 
@@ -25,3 +26,9 @@ export class ApiService {
         return this.axiosInstance.delete<T>(url, data);
     }
 }
+
+const api = axios.create({
+    baseURL: 'http://localhost:8000',
+});
+
+export default api;

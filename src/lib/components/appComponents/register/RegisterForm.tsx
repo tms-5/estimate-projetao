@@ -99,8 +99,7 @@ export default function RegisterForm(props: {
           <Button
             text={<Image src={Arrow} alt="Arrow" width={35} />}
             class="p-1 button-arrow-register"
-            onClick={() => console.log(returnData())}
-          />
+            onClick={() => console.log(returnData())} style={"primary"}          />
         </div>
       </div>
     </div>

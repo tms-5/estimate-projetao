@@ -29,10 +29,16 @@ export const Histogram = ({ width, height, data }: HistogramProps) => {
   const xScale = useMemo(() => {
     return d3
       .scalePoint()
-      .domain(uniqueValues)
+      .domain(uniqueValues.toString().split(','))
       .range([0, boundsWidth])
       .padding(BAR_PADDING);
   }, [uniqueValues, boundsWidth]);
+
+  console.log('uniqueValues', uniqueValues);
+  console.log('uniqueValues string', uniqueValues.toString().split(','));
+
+  const test = Number(uniqueValues.toString().split(',')[0]);
+  console.log('test', test);
 
   const maxY = Math.max(...Object.values(frequency));
   const yScale = useMemo(() => {
@@ -59,7 +65,9 @@ export const Histogram = ({ width, height, data }: HistogramProps) => {
   const barWidth = width / uniqueValues.length - 15;
 
   const allRects = uniqueValues.map((value, i) => {
-    const x = xScale(value) - barWidth / 2;
+    const xAxis = xScale(String(value));
+    const x = Number(xAxis) - (barWidth / 2);
+
     const height = boundsHeight - yScale(frequency[value]);
     return (
       <rect
