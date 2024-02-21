@@ -1,3 +1,4 @@
+import { InsertInvitationOutlined } from '@mui/icons-material';
 import TextField from '@mui/material/TextField';
 
 export default function InputProjectRegister(props: {
@@ -9,11 +10,22 @@ export default function InputProjectRegister(props: {
   value?: any;
   disabled?: boolean;
   name?: string;
+  initialValue?: string;
 }) {
   return (
     <>
       <p style={{ marginBottom: '4px', width: '100%'}}>{props.name}</p>
-      <input style={{ height: '0.1px', borderRadius: '4px', border: '1px solid #CDE1FF', width: '80%', filter: 'none' }}/>
+      <input 
+        style={{ 
+          height: '0.1px', 
+          borderRadius: '4px', 
+          border: '1px solid #CDE1FF', 
+          width: '80%', 
+          filter: 'none' 
+        }} 
+        placeholder={props.placeholder}
+        defaultValue={props.initialValue}
+      />
     </>
   );
 }

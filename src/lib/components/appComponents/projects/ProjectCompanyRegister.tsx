@@ -8,8 +8,22 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import InputProjectRegister from "../../input/InputProjectRegister";
+import InputDropdown from "../../inputDropdown";
 
 export default function ProjectCompanyRegister() {
+  const [openBox, setOpenBox] = React.useState(false);
+  const [componentList, setComponentList] = React.useState<string[]>(['new value']);
+  
+  const handleOpenBox = () => {
+    setOpenBox(!openBox);
+  };
+
+  const handleClick = () => {
+    setComponentList((prevValue: string[]) => [...prevValue, 'new value']);
+  };
+
+  console.log('componentList', componentList);
+
     return (
       <>
         <PageTitle title="PROJETO" subTitle="" />
@@ -22,7 +36,7 @@ export default function ProjectCompanyRegister() {
             justifyContent: "center",
             alignItems: "flex-start", 
             marginTop: '24px', 
-            gap: '4%' 
+            gap: '4%',
           }}
         >
           <div style={{ width: '64%' }}>
@@ -46,18 +60,23 @@ export default function ProjectCompanyRegister() {
 
         <h3>Estrutura do Projeto</h3>
         <p style={{ color: '#757575', marginTop: '-16px', marginBottom: '32px' }}>Adicionar componentes e Atividades detalhadas</p>
-        
-        <div>
-          <p>Adicione um novo componente +</p>
-          <input type="text" name="Nome do componente" placeholder="Nome do componente" id="" />
-          <input type="text" name="Descrição" placeholder="Descrição" id="" />
-          <Link href={""}>
-            Cancelar
-          </Link>
-          <Link href={""}>
-            Salvar
-          </Link>
-        </div>
+
+        {componentList.length === 1 ? 
+          <InputDropdown 
+            title={"Adicionar Componente"} 
+            placeholders={["Nome do componente", "Descrição"]}
+            onClick={handleClick}
+          />
+        : 
+          componentList.map((value) => (
+            <InputDropdown 
+              key={Math.random()}
+              title={"Adicionar Componente"} 
+              placeholders={["Nome do componente", "Descrição"]}
+              onClick={handleClick}
+            />
+          ))
+        }
 
         <div>
           <div>

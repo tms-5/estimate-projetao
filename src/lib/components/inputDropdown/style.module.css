@@ -1,0 +1,7 @@
+.rotate {
+  transition: transform 0.5s ease; /* Adiciona uma transição suave */
+}
+
+.rotate.rotate-180 {
+  transform: rotate(180deg); /* Rotaciona o elemento em 180 graus */
+}
