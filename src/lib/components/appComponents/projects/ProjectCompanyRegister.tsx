@@ -9,17 +9,25 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import InputProjectRegister from "../../input/InputProjectRegister";
 import InputDropdown from "../../inputDropdown";
+import { LinkOffTwoTone } from "@mui/icons-material";
 
 export default function ProjectCompanyRegister() {
   const [openBox, setOpenBox] = React.useState(false);
-  const [componentList, setComponentList] = React.useState<string[]>(['new value']);
+  const [componentList, setComponentList] = React.useState<string[]>([]);
+  const [activityList, setActivityList] = React.useState<string[]>([]);
   
   const handleOpenBox = () => {
     setOpenBox(!openBox);
   };
 
-  const handleClick = () => {
-    setComponentList((prevValue: string[]) => [...prevValue, 'new value']);
+  const handleClick = (clickType: string) => {
+    if (clickType === 'component') {
+      setComponentList((prevValue: string[]) => [...prevValue, 'new value']);
+    }
+
+    if (clickType === 'activity') {
+      setActivityList((prevValue: string[]) => [...prevValue, 'new value']);
+    }
   };
 
   console.log('componentList', componentList);
@@ -61,47 +69,64 @@ export default function ProjectCompanyRegister() {
         <h3>Estrutura do Projeto</h3>
         <p style={{ color: '#757575', marginTop: '-16px', marginBottom: '32px' }}>Adicionar componentes e Atividades detalhadas</p>
 
-        {componentList.length === 1 ? 
+        {componentList.length === 0 ? 
           <InputDropdown 
             title={"Adicionar Componente"} 
             placeholders={["Nome do componente", "Descrição"]}
-            onClick={handleClick}
+            onClick={() => handleClick('component')}
+            buttons={true}
           />
         : 
-          componentList.map((value) => (
+        <>
+          <InputDropdown 
+            title={"Adicionar Componente"} 
+            placeholders={["Nome do componente", "Descrição"]}
+            onClick={() => handleClick('component')}
+            buttons={true}
+          />
+          {componentList.map((value) => (
             <InputDropdown 
               key={Math.random()}
               title={"Adicionar Componente"} 
               placeholders={["Nome do componente", "Descrição"]}
-              onClick={handleClick}
+              onClick={() => handleClick('component')}
             />
-          ))
+          ))}
+        </>
         }
 
-        <div>
-          <div>
-            <p>Adicione uma nova atividade LIXO LAPIS</p>
-            <p>Cadastrar tarefa</p>
-          </div>
-          <input type="text" name="Digite o nome da tarefa LUPA" placeholder="Digite o nome da tarefa LUPA" id="" />
-          <div>
-            <p>Tarefas semelhantes encontradas: </p>
-            <div>
-              <h3>TITULO DA ATIVIDADE</h3>
-              <p><strong>Descrição: </strong> DESCRIÇÃO DA ATIVIDADE</p>
-              <p><strong>Área: </strong> ÁREA DA ATIVIDADE</p>
-              <p><strong>Tecnologia: </strong> ÁREA DA ATIVIDADE</p>
-              <p><strong>Biblioteca: </strong> ÁREA DA ATIVIDADE</p>
-              <p><strong>Senioridade: </strong> ÁREA DA ATIVIDADE</p>
-              <div>
-                <button type="button">Selecionar</button>
-              </div>
-            </div>
-          </div>
-          <input type="text" name="Descrição" placeholder="Descrição" />
+        {activityList.length === 0 ? 
+          <InputDropdown 
+            title={"Adicionar Atividades"} 
+            placeholders={["Digite o nome da atividade que deseja adicionar"]}
+            onClick={() => handleClick('activity')}
+            buttons={true}
+            activity={true}
+          />
+        : 
+          <>
+            <InputDropdown 
+              title={"Adicionar Atividades"} 
+              placeholders={["Digite o nome da atividade que deseja adicionar"]}
+              onClick={() => handleClick('activity')}
+              buttons={true}
+            />
+            {componentList.map((value) => (
+              <InputDropdown
+                key={Math.random()}
+                title={"Adicionar Atividades"} 
+                placeholders={["Digite o nome da atividade que deseja adicionar"]}
+                onClick={() => handleClick('activity')}
+              />
+            ))}
+          </>
+        }
 
-          <p>Task não encontrada?</p>
-          <p>Entre em contato com especialistas para obter uma estimativa personalizada.</p>
+        <div style={{ marginTop: '88px', marginBottom: '100px' }}>
+          <Link href={""} style={{ color: '#0898B5' }}>
+            <u>Task não encontrada?</u>
+          </Link>
+          <p style={{ color: '#0898B5', marginTop: '8px' }} >Entre em contato com especialistas para obter uma estimativa personalizada.</p>
         </div>
       </>
     )

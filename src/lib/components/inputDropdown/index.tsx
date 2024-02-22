@@ -2,13 +2,18 @@ import { useState } from "react"
 import InputProjectRegister from "../input/InputProjectRegister";
 import Link from "next/link";
 import style from './style.module.css'
+import { SearchActivityType } from "@/types/projects";
+import { PencilIcon, Trash } from "@/lib/assets/icon";
+import Image from "next/image";
 
 const InputDropdown = (props: {
     title: string, 
     placeholders: string[], 
     onClick: () => void,
     initialValue?: string,
-    buttons?: boolean, 
+    buttons?: boolean,
+    activity?: boolean,
+    foundActivity?: SearchActivityType[],
   }) => {
   const [openBox, setOpenBox] = useState(false);
   const [rotate, setRotate] = useState(false);
@@ -19,7 +24,7 @@ const InputDropdown = (props: {
   };
 
   return (
-    <div>
+    <div style={{ marginBottom: '40px' }}>
       <div 
         style={{ 
           display: "flex" , 
@@ -38,13 +43,29 @@ const InputDropdown = (props: {
         onClick={handleOpenBox}
       >
         <p>{props.title}</p>
-        <p 
-          style={{ marginRight: '16px', cursor: 'pointer' }} 
-          onClick={handleOpenBox}
-          className={`${style.rotate} ${rotate ? style['rotate-180'] : ''}`} /* Adiciona a classe 'rotate-180' se isRotated for verdadeiro */
-        > 
-          <strong>+</strong>
-        </p>
+        <div style={{ display: "flex", alignItems: "center", gap: '16px' }} >
+          {!props.buttons ? 
+            <>
+              <Image src={Trash} alt={""} />
+              <Image src={PencilIcon} alt={""} style={{ marginBottom: '4px', marginRight: '-4px' }}/>
+              <p 
+                style={{ marginRight: '16px', cursor: 'pointer' }} 
+                onClick={handleOpenBox}
+                className={`${style.rotate} ${rotate ? style['rotate-180'] : ''}`}
+              >         
+                <strong>+</strong>
+              </p>
+            </>
+          : 
+            <p 
+              style={{ marginRight: '16px', cursor: 'pointer' }} 
+              onClick={handleOpenBox}
+              className={`${style.rotate} ${rotate ? style['rotate-180'] : ''}`}
+            >         
+              <strong>+</strong>
+            </p>
+          }
+        </div>
       </div>
       {openBox ? 
         <div 
@@ -57,14 +78,59 @@ const InputDropdown = (props: {
               initialValue={props.initialValue}
             />
           ))}
-          <div style={{ marginTop: '16px' }}>
-            <button type='button' style={{ marginRight: '16px', color: '#757575' }}>
-              <u>Cancelar</u>
-            </button>
-            <button type='button' style={{ color: '#0898B5' }} onClick={props.onClick}>
-              <u>Salvar</u>
-            </button>
-          </div>
+
+          {props.activity && props.foundActivity ?
+            <>
+              <p style={{ color: '#757575' }}>Tarefas semelhantes encontradas: </p>
+              {props.foundActivity?.map((value) => (
+                <div style={{ marginTop: '16px' }} key={Math.random()}>
+                  <div style={{
+                    backgroundColor: '#E6E6E6',
+                    borderRadius: '10px',
+                    padding: '24px',
+                    width: '97%'
+                  }}>
+                    <h3>{value.title}</h3>
+                    <p><strong>Descrição: </strong> {value.description}</p>
+                    <p><strong>Área: </strong> {value.area} </p>
+                    <p><strong>Tecnologia: </strong> {value.tech} </p>
+                    <p><strong>Biblioteca: </strong> {value.lib} </p>
+                    <p><strong>Senioridade: </strong> {value.seniorLevel} </p>
+                    <div style={{ display: "flex", justifyContent: "end" }}>
+                      <button 
+                        type="button"
+                        style={{ backgroundColor: '#0898B5', color: '#FFF', width: '20%', height: '40px' }}
+                      >
+                        Selecionar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              <InputProjectRegister 
+                key={Math.random()} 
+                placeholder={'Descrição'}
+                initialValue={props.initialValue}
+              />
+            </>
+          : 
+            <div />
+          }
+
+
+          {props.buttons ? 
+            <div style={{ marginTop: '16px' }}>
+              <button type='button' style={{ marginRight: '16px', color: '#757575' }}>
+                <u>Cancelar</u>
+              </button>
+              <button type='button' style={{ color: '#0898B5' }} onClick={props.onClick}>
+                <u>Salvar</u>
+              </button>
+            </div>
+          : 
+            <div />
+          }
         </div>
       : 
         <div />
