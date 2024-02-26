@@ -23,7 +23,7 @@ function Sidebar(props: {
 
   const companyOptions = [
     { name: "Início", path: "/home", search: false },
-    { name: "Projetos", path: "/projects", search: false },
+    { name: "Suporte", path: "/support", search: false },
   ];
 
   useEffect(() => {
