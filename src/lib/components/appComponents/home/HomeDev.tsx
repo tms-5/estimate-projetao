@@ -4,10 +4,10 @@ import TaskCard from "../../card/TaskCard";
 import { StatTypes } from "@/store/enum";
 import { useAuth } from "@/context/AuthContext";
 import PageTitle from "../../pageTitle/PageTitle";
+import { returnDateAndTime } from "./controller";
 
 export default function HomeDev() {
   const { user } = useAuth();
-  const [currentDate, setCurrentDate] = useState(new Date());
 
   let infosDevs = [
     {
@@ -42,29 +42,6 @@ export default function HomeDev() {
     },
   ];
 
-  function returnDateAndTime() {
-    return (
-      currentDate
-        .toLocaleString("pt-BR", {
-          weekday: "short",
-          day: "numeric",
-          month: "short",
-          year: "numeric",
-        })
-        .replace(".", "")
-        .charAt(0)
-        .toUpperCase() +
-      currentDate
-        .toLocaleString("pt-BR", {
-          weekday: "short",
-          day: "numeric",
-          month: "short",
-          year: "numeric",
-        })
-        .replace(".", "")
-        .slice(1)
-    );
-  }
   return (
     <>
       <div className="w-max-100">

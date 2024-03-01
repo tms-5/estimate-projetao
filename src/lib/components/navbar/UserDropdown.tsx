@@ -42,7 +42,7 @@ function UserDropdown({ userName }: { userName: string }) {
 
         {isOpen && (
           <div className="p-absolute navbar-dropdown">
-            <Button text={"Encerrar sessão"} onClick={logout} />
+            <Button text={"Encerrar sessão"} onClick={logout} class="p-2"/>
           </div>
         )}
       </div>
