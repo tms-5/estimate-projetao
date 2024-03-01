@@ -11,6 +11,7 @@ export default function InputProjectRegister(props: {
   disabled?: boolean;
   name?: string;
   initialValue?: string;
+  autoFocus?: any;
 }) {
   return (
     <>
@@ -21,10 +22,13 @@ export default function InputProjectRegister(props: {
           borderRadius: '4px', 
           border: '1px solid #CDE1FF', 
           width: '80%', 
-          filter: 'none' 
+          filter: 'none'
         }} 
+        value={props.value}
         placeholder={props.placeholder}
         defaultValue={props.initialValue}
+        onChange={props.onChange}
+        autoFocus={props.autoFocus}
       />
     </>
   );

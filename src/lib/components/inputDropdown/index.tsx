@@ -6,6 +6,11 @@ import { SearchActivityType } from "@/types/projects";
 import { PencilIcon, Trash } from "@/lib/assets/icon";
 import Image from "next/image";
 
+type InputDataType = {
+  nome?: string;
+  descricao?: string;
+};
+
 const InputDropdown = (props: {
     title: string, 
     placeholders: string[], 
@@ -14,13 +19,27 @@ const InputDropdown = (props: {
     buttons?: boolean,
     activity?: boolean,
     foundActivity?: SearchActivityType[],
+    onInputChange?: (value: any) => void,
   }) => {
   const [openBox, setOpenBox] = useState(false);
   const [rotate, setRotate] = useState(false);
+  const [inputData, setInputData] = useState<InputDataType>({
+    nome: '',
+    descricao: '',
+  });
 
   const handleOpenBox = () => {
     setOpenBox(!openBox);
     setRotate(!rotate);
+  };
+
+  const handleChange = (field: string, value: string) => {
+    setInputData({
+      ...inputData,
+      [field]: value,
+    });
+
+    console.log('inputData', inputData);
   };
 
   return (
@@ -71,13 +90,21 @@ const InputDropdown = (props: {
         <div 
           style={{ marginLeft: '24px', display: "flex", flexDirection: 'column', width: '70%' }}
         >
-          {props.placeholders.map((placeholder: string) => (
-            <InputProjectRegister 
-              key={Math.random()} 
-              placeholder={placeholder}
-              initialValue={props.initialValue}
-            />
-          ))}
+          <InputProjectRegister 
+            key={Math.random()} 
+            placeholder="Nome"
+            // initialValue={props.initialValue}
+            value={inputData?.nome}
+            onChange={(e) => handleChange("nome", e.target.value)}
+          />
+
+          <InputProjectRegister 
+            key={Math.random()} 
+            placeholder="Descrição"
+            // initialValue={props.initialValue}
+            value={inputData?.descricao}
+            onChange={(e) => handleChange("descricao", e.target.value)}
+          />
 
           {props.activity && props.foundActivity ?
             <>
@@ -112,6 +139,7 @@ const InputDropdown = (props: {
                 key={Math.random()} 
                 placeholder={'Descrição'}
                 initialValue={props.initialValue}
+                onChange={props.onInputChange}
               />
             </>
           : 

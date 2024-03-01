@@ -13,24 +13,64 @@ import { LinkOffTwoTone } from "@mui/icons-material";
 
 export default function ProjectCompanyRegister() {
   const [openBox, setOpenBox] = React.useState(false);
-  const [componentList, setComponentList] = React.useState<string[]>([]);
-  const [activityList, setActivityList] = React.useState<string[]>([]);
+  const [componentList, setComponentList] = React.useState<any[]>([]);
+  const [activityList, setActivityList] = React.useState<any[]>([]);
+  const [registerProject, setRegisterProject] = React.useState({
+    nome: '',
+    senioridade: '',
+    area: '',
+    tecnologia: '',
+    bibliotecas: [],
+  });
+  const [componentObj, setComponentObj] = React.useState({
+    nome: '',
+    descricao: '',
+  });
+  const [actObj, setActObj] = React.useState({
+    nome: '',
+    descricao: '',
+  });
   
   const handleOpenBox = () => {
     setOpenBox(!openBox);
   };
 
-  const handleClick = (clickType: string) => {
+  const handleClick = (clickType: string, name?: string, description?: string) => {
     if (clickType === 'component') {
-      setComponentList((prevValue: string[]) => [...prevValue, 'new value']);
+      setComponentList((prevValue: string[]) => [...prevValue, {
+        nome: name,
+        descricao: description,
+      }]);
     }
 
     if (clickType === 'activity') {
-      setActivityList((prevValue: string[]) => [...prevValue, 'new value']);
+      setActivityList((prevValue: string[]) => [...prevValue, {
+        nome: name,
+        descricao: description,
+      }]);
     }
   };
 
-  console.log('componentList', componentList);
+  const handleChange = (value: any, field: any) => {
+    setRegisterProject({
+      ...registerProject,
+      [field]: value,
+    });
+  };
+
+  const handleChangeDropdown = (value: any, field: any, type: boolean) => {
+    if (type) {
+      setActObj({
+        ...actObj,
+        [field]: value,
+      });
+    } else {
+      setComponentObj({
+        ...componentObj,
+        [field]: value,
+      });
+    }
+  };
 
     return (
       <>
@@ -53,13 +93,13 @@ export default function ProjectCompanyRegister() {
           </div>
 
           <div style={{ marginTop: '24px', width: '100%', display: 'flex', flexDirection: 'column' }}>
-            <InputProjectRegister name="Nome" />
-            <InputProjectRegister name="Senioridade" />
-            <InputProjectRegister name="Área" />
-            <InputProjectRegister name="Tecnologia" />
+            <InputProjectRegister name="Nome" onChange={(value: any) => handleChange(value.target.value, 'nome')}/>
+            <InputProjectRegister name="Senioridade" onChange={(value: any) => handleChange(value.target.value, 'senioridade')}/>
+            <InputProjectRegister name="Área" onChange={(value: any) => handleChange(value.target.value, 'area')}/>
+            <InputProjectRegister name="Tecnologia" onChange={(value: any) => handleChange(value.target.value, 'tecnologia')}/>
             <p style={{ marginBottom: '4px', width: '100%'}}>Bibliotecas</p>
             <div style={{ width: '80%' }}>
-              <ChipsArray onChangeValues={() => console.log()} />
+              <ChipsArray onChangeValues={(value: any) => handleChange(value, 'bibliotecas')} />
             </div>
           </div>
         </div>
@@ -73,6 +113,7 @@ export default function ProjectCompanyRegister() {
           <InputDropdown 
             title={"Adicionar Componente"} 
             placeholders={["Nome do componente", "Descrição"]}
+            onInputChange={(e: any) => console.log(e.target.value)}
             onClick={() => handleClick('component')}
             buttons={true}
           />
@@ -122,11 +163,30 @@ export default function ProjectCompanyRegister() {
           </>
         }
 
+        <div style={{ display: "flex" , justifyContent: "flex-end"}}>
+          <button
+            style={{ 
+              background: '#0898B5', 
+              color: '#FFF', 
+              borderRadius: '4px', 
+              transition: 'background-color 0.3s ease',
+              boxShadow: 'none',
+              filter: "none",
+              height: '7vh',
+              width: '20%',
+              marginTop: '32px',
+              marginRight: '64px'
+            }}
+          >
+            Concluir Cadastro
+          </button>
+        </div>
+
         <div style={{ marginTop: '88px', marginBottom: '100px' }}>
-          <Link href={""} style={{ color: '#0898B5' }}>
+          <Link href={""} style={{ color: '#0898B5', fontSize: '14px' }}>
             <u>Task não encontrada?</u>
           </Link>
-          <p style={{ color: '#0898B5', marginTop: '8px' }} >Entre em contato com especialistas para obter uma estimativa personalizada.</p>
+          <p style={{ color: '#0898B5', marginTop: '8px', fontSize: '14px' }} >Entre em contato com especialistas para obter uma estimativa personalizada.</p>
         </div>
       </>
     )
