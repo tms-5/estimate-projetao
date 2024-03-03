@@ -64,9 +64,15 @@ export default function Login() {
           <div className="d-flex mt-2r justify-s-b w-100">
             <Button
               text={"Entrar"}
-              class="b-none bg-white"
-              onClick={() => validateLogin()} style={"primary"}            />
-            <Button text={"Esqueceu a senha?"} class="b-none no-filter" style={"primary"} />
+              class="b-none bg-white c-teal-blue-100 p-2"
+              onClick={() => validateLogin()}
+              style={"primary"}
+            />
+            <Button
+              text={"Esqueceu a senha?"}
+              class="b-none no-filter"
+              style={"primary"}
+            />
           </div>
         </div>
 

@@ -7,6 +7,7 @@ export default function Input(props: {
   value?: any;
   disabled?: boolean;
   name?: string;
+  defaultValue?: string;
 }) {
   return (
     <input
@@ -18,6 +19,7 @@ export default function Input(props: {
       onBlur={props.onBlur}
       value={props.value}
       disabled={props.disabled}
+      defaultValue={props.defaultValue}
     />
   );
 }

@@ -26,7 +26,9 @@ body {
   margin: 0;
 }
 
-div, button, input {
+div,
+button,
+input {
   font-family: "Nunito Sans", sans-serif !important;
 }
 
@@ -52,6 +54,10 @@ div, button, input {
 
 .bg-teal-blue-100 {
   background-color: $teal-blue-100;
+}
+
+.c-teal-blue-100 {
+  color: $teal-blue-100;
 }
 
 .bg-gray-5 {
@@ -742,6 +748,10 @@ button {
 .blue-img {
   filter: invert(80%) sepia(41%) saturate(2192%) hue-rotate(184deg)
     brightness(101%) contrast(102%);
+}
+
+.drop-shadow {
+  filter: drop-shadow(3px 2px 5.5px rgba(54, 135, 255, 0.3)) !important;
 }
 
 /*Outros*/
