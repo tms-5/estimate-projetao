@@ -19,6 +19,7 @@ export default function InputProjectRegister(props: {
         placeholder={props.placeholder}
         defaultValue={props.initialValue}
         class="b-none mt-1r w-web font-nunito p-1"
+        onChange={props.onChange}
       />
     </>
   );
