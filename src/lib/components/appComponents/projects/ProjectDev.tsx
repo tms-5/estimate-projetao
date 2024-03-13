@@ -29,7 +29,7 @@ export default function ProjectDev() {
   useEffect(() => {
     const handleGetUserProjects = async () => {
       try {
-        const response = await getUsersProjects(1);
+        const response = await getUsersProjects(3);
         setProjects(response);
 
         response.map(async (res: any) => {
@@ -150,9 +150,28 @@ export default function ProjectDev() {
           </div>
         </>
         : 
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70vh' }}>
-          <p>Nenhum projeto cadastraso</p>
-        </div>
+        <>
+          <div style={{ display: 'flex', justifyContent: 'end' }}>
+            <Link href={'/projects/offers'}>
+              <button 
+                style={{ 
+                  background: '#0898B5', 
+                  color: '#FFF', 
+                  borderRadius: '8px', 
+                  transition: 'background-color 0.3s ease',
+                  boxShadow: 'none',
+                  marginRight: '32px',
+                }}
+              >
+                Visualizar ofertas
+              </button>
+            </Link>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70vh' }}>
+            <p>Nenhum projeto cadastraso</p>
+          </div>
+
+        </>
       }
     </>       
   );

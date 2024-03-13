@@ -1,8 +1,25 @@
 import useStore from "@/context/ProjectsContext";
 import PageTitle from "../../pageTitle/PageTitle";
+import relateUserProject from "@/services/ProjectServices/relateUserToProject";
+import { useRouter } from "next/router";
 
 export default function OfferProjectByID() {
   const offerData = useStore();
+  const router = useRouter();
+
+  const handleAcceptOffer = async () => {
+    try {
+      const responseRelation = await relateUserProject(3, offerData.id);
+      console.log(responseRelation);
+
+      if (responseRelation) {
+        router.push('/projects');
+      }
+
+    } catch (error) {
+      console.error(error);
+    };
+  };
 
   return (
     <>
@@ -33,7 +50,19 @@ export default function OfferProjectByID() {
 
       <div style={{ marginBottom: '48px', display: 'flex', gap: '24px' }}>
         <button style={{ border: '1px solid #757575', borderRadius: '8px', width: '16%', fontSize: '16px' }} type="button">Recusar</button>
-        <button style={{ borderRadius: '8px', backgroundColor: '#0898B5', color: '#FFF', width: '16%', fontSize: '16px' }} type="button">Aceitar</button>
+        <button 
+          style={{ 
+            borderRadius: '8px', 
+            backgroundColor: '#0898B5',
+            color: '#FFF', 
+            width: '16%', 
+            fontSize: '16px' 
+          }} 
+          type="button"
+          onClick={handleAcceptOffer}
+        >
+          Aceitar
+        </button>
       </div>
     </>
   );
