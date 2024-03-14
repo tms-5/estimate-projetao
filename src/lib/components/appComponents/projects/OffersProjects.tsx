@@ -42,58 +42,64 @@ export default function OffersProjects() {
     const handleGetProjectsByUser = async () => {
       try {
         const userProjects = await getUsersProjects(userId);
-
+        const devProjects = await getUsersProjects(3);
+        const devProjectsList = devProjects.map((object: {
+          project: any; id: any; 
+        }) => object.project.id);
+        
         userProjects.map(async (project: any) => {
-          const taskResponse = await getTasksProject(project.project.id);
-
-          const predictedConclusionDate = project.project.date_predicted_conclusion;
-          const deadline = predictedConclusionDate.split('T')[0].split('-');
-          const formattedDate = `${deadline[2]}/${deadline[1]}/${deadline[0]}`;
-          
-          const deadlineData: any = new Date(predictedConclusionDate.split('T')[0]);
-          const differenceInMilliseconds = Math.abs(deadlineData - todayDate);
-          const differenceInDays = Math.ceil(differenceInMilliseconds / (1000 * 60 * 60 * 24));
-
-          if (differenceInDays <= 10 && newOffers.length < userProjects.length) {
-            setNewOffers((prevValues: any) => ([
-              ...prevValues,
-              {
-                id: project.project.id,
-                header: project.project.name,
-                deadlineDate: formattedDate,
-                taskTotal: taskResponse.length,
-                technology: project.project.stack,
-                status: verifyStatus(taskResponse.length, 0),
-              }
-            ]));
-          }
-
-          if (differenceInDays > 10 && oldOffers.length < userProjects.length) {
-            setOldOffers((prevValues: any) => ([
-              ...prevValues,
-              {
-                id: project.project.id,
-                header: project.project.name,
-                deadlineDate: formattedDate,
-                taskTotal: taskResponse.length,
-                technology: project.project.stack,
-                status: verifyStatus(taskResponse.length, 0),
-              }
-            ]));
-          }
-
-          if (differenceInDays > 100 && deniedOffers.length < userProjects.length) {
-            setDeniedOffers((prevValues: any) => ([
-              ...prevValues,
-              {
-                id: project.project.id,
-                header: project.project.name,
-                deadlineDate: formattedDate,
-                taskTotal: taskResponse.length,
-                technology: project.project.stack,
-                status: verifyStatus(taskResponse.length, 0),
-              }
-            ]));
+          if (devProjectsList.includes(project.project.id) === false) {
+            const taskResponse = await getTasksProject(project.project.id);
+  
+            const predictedConclusionDate = project.project.date_predicted_conclusion;
+            const deadline = predictedConclusionDate.split('T')[0].split('-');
+            const formattedDate = `${deadline[2]}/${deadline[1]}/${deadline[0]}`;
+            
+            const deadlineData: any = new Date(predictedConclusionDate.split('T')[0]);
+            const differenceInMilliseconds = Math.abs(deadlineData - todayDate);
+            const differenceInDays = Math.ceil(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+  
+            if (differenceInDays <= 10 && newOffers.length < userProjects.length) {
+              setNewOffers((prevValues: any) => ([
+                ...prevValues,
+                {
+                  id: project.project.id,
+                  header: project.project.name,
+                  deadlineDate: formattedDate,
+                  taskTotal: taskResponse.length,
+                  technology: project.project.stack,
+                  status: verifyStatus(taskResponse.length, 0),
+                }
+              ]));
+            }
+  
+            if (differenceInDays > 10 && oldOffers.length < userProjects.length) {
+              setOldOffers((prevValues: any) => ([
+                ...prevValues,
+                {
+                  id: project.project.id,
+                  header: project.project.name,
+                  deadlineDate: formattedDate,
+                  taskTotal: taskResponse.length,
+                  technology: project.project.stack,
+                  status: verifyStatus(taskResponse.length, 0),
+                }
+              ]));
+            }
+  
+            if (differenceInDays > 100 && deniedOffers.length < userProjects.length) {
+              setDeniedOffers((prevValues: any) => ([
+                ...prevValues,
+                {
+                  id: project.project.id,
+                  header: project.project.name,
+                  deadlineDate: formattedDate,
+                  taskTotal: taskResponse.length,
+                  technology: project.project.stack,
+                  status: verifyStatus(taskResponse.length, 0),
+                }
+              ]));
+            }
           }
         });
       } catch (error) {
