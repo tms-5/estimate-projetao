@@ -34,18 +34,17 @@ export default function OfferProjectByID() {
 
       <PageTitle title="INFORMAÇÕES TÉCNICAS" subTitle={""} />
       <div style={{ marginBottom: '48px' }}>
-        <p> <strong> Senioridade: </strong> ??? </p>
+        <p> <strong> Senioridade: </strong> Junior </p>
         <p> <strong>Tecnologia: </strong> {offerData.technology} </p>
-        <p> <strong> Biblioteca: </strong> ??? </p>
+        <p> <strong> Biblioteca: </strong> axios </p>
       </div>
 
       <PageTitle title="INFORMAÇÕES DO PROJETO" subTitle={""} />
       <div style={{ marginBottom: '48px' }}>
-        <p> <strong>Quantidade de componentes: </strong> ??? </p>
+        <p> <strong>Quantidade de componentes: </strong> 5 </p>
         <p> <strong>Tasks para mensurar: </strong> {offerData.taskTotal} </p>
-        <p> <strong>Tempo de espera permitido: </strong> ??? </p>
-        <p> <strong>Grau de risco do projeto: </strong> ??? </p>
-        <p> <strong> Valor: </strong> R$ ???,00 </p>
+        <p> <strong>Tempo de espera permitido: </strong> 10 dias </p>
+        <p> <strong>Grau de risco do projeto: </strong> Baixo </p>
       </div>
 
       <div style={{ marginBottom: '48px', display: 'flex', gap: '24px' }}>

@@ -1,20 +1,14 @@
 import Link from "next/link";
 import PageTitle from "../../pageTitle/PageTitle";
-import Input from "../../input/Input";
 import * as React from "react";
 import ChipsArray from "@/lib/components/selection/SelectionChips";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import { SelectChangeEvent } from "@mui/material/Select";
-import TextField from "@mui/material/TextField";
 import InputProjectRegister from "../../input/InputProjectRegister";
-import InputDropdown from "../../inputDropdown";
-import { LinkOffTwoTone } from "@mui/icons-material";
 import Select from "../../select/Select";
 import ExpandingInputComponent from "../../expensiveInput";
 import Button from "../../button/Button";
 import { ProjectType } from "@/types/projects";
 import createProject from "@/services/ProjectServices/createProject";
+import { useRouter } from "next/router";
 
 export default function ProjectCompanyRegister() {
   const [openBox, setOpenBox] = React.useState(false);
@@ -34,6 +28,7 @@ export default function ProjectCompanyRegister() {
     company_field: '',
   }); // valores da parte de informacoes tecnicas
   const [components, setComponents] = React.useState<any>();
+  const router = useRouter();
 
   const handleChipChange = (value: any) => {
     setComponents(value);
@@ -67,7 +62,7 @@ export default function ProjectCompanyRegister() {
         date_conclusion: "2024-03-09T16:06:04.025Z",
       }
       const response = await createProject(payload);
-      console.log("response", response);
+      router.push('/home');
     } catch (error) {
       console.log('error', error);
     };
@@ -126,7 +121,7 @@ export default function ProjectCompanyRegister() {
       </div>
 
       <div style={{ display: 'flex', justifyContent: "flex-end", marginTop: "24px" }}>
-        <button type="button" onClick={handleButtonClick}> Salvar </button>
+        <Button text={"Salvar"} style="primary" onClick={handleButtonClick} />
       </div>
 
       <hr style={{ marginTop: "48px", marginBottom: "48px" }} />

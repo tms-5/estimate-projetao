@@ -9,33 +9,39 @@ import { returnDateAndTime } from "./controller";
 export default function HomeDev() {
   const { user } = useAuth();
 
+  const randomContribution = Math.floor(Math.random() * 100);
+  const rightEstimates = Math.floor(Math.random() * (randomContribution+1));
+  const projectsColab = Math.floor(Math.random() * (rightEstimates+1));
+  const wallet = Math.random() * (rightEstimates / 10);
+  const monthProfit = Math.random() * wallet;
+
   let infosDevs = [
     {
-      value: "00",
+      value: randomContribution,
       text: "Contribuições em tarefas",
       color: "#A66EBA",
       type: StatTypes.regular,
     },
     {
-      value: "00",
+      value: rightEstimates,
       text: "Estimativas corretas",
       color: "#3687ff",
       type: StatTypes.regular,
     },
     {
-      value: "00",
+      value: projectsColab,
       text: "Participações em projetos",
       color: "#83CBDA",
       type: StatTypes.regular,
     },
     {
-      value: "00",
+      value: wallet.toFixed(2),
       text: "Saldo da carteira",
       color: "#3687ff",
       type: StatTypes.balance,
     },
     {
-      value: "+R$ 00,00",
+      value: `+R$ ${monthProfit.toFixed(2)}`,
       text: "Este mês",
       color: "#008953",
       type: StatTypes.profit,
@@ -55,7 +61,7 @@ export default function HomeDev() {
           {infosDevs.map((card, i) => (
             <DashboardStats
               key={i}
-              value={card.value}
+              value={card.value.toString()} // Convert card.value to a string
               text={card.text}
               type={card.type}
               color={card.color}

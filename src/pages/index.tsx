@@ -1,21 +1,16 @@
 import { useRouter } from "next/router";
 import { useAuth } from "../context/AuthContext";
+import Login from "@/lib/components/appComponents/login/Login";
+import Background from "@/lib/components/appComponents/background/background";
 
 export default function Home() {
   const { user, logout } = useAuth();
   const router = useRouter();
 
   return (
-    <>
-      <h1>Hello Context</h1>
-      <h2>
-        User: {user && String(user?.name)} <br />
-        Level: {user && String(user?.level)}
-      </h2>
-      <div>
-        <button onClick={() => router.push("/login")}>Login</button>
-        <button onClick={logout}>Logout</button>
-      </div>
-    </>
+    <div className="d-flex h-100">
+      <Login />
+      <Background />
+    </div>
   );
 }
