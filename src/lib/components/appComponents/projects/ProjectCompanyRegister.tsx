@@ -1,12 +1,14 @@
-import Link from 'next/link';
-import PageTitle from '../../pageTitle/PageTitle';
-import * as React from 'react';
-import ChipsArray from '@/lib/components/selection/SelectionChips';
-import InputProjectRegister from '../../input/InputProjectRegister';
-import Select from '../../select/Select';
-import ExpandingInputComponent from '../../expensiveInput';
-import { ProjectType } from '@/types/projects';
-import createProject from '@/services/ProjectServices/createProject';
+import Link from "next/link";
+import PageTitle from "../../pageTitle/PageTitle";
+import * as React from "react";
+import ChipsArray from "@/lib/components/selection/SelectionChips";
+import InputProjectRegister from "../../input/InputProjectRegister";
+import Select from "../../select/Select";
+import ExpandingInputComponent from "../../expensiveInput";
+import Button from "../../button/Button";
+import { ProjectType } from "@/types/projects";
+import createProject from "@/services/ProjectServices/createProject";
+import { useRouter } from "next/router";
 
 export default function ProjectCompanyRegister() {
   const [openBox, setOpenBox] = React.useState(false);
@@ -26,6 +28,7 @@ export default function ProjectCompanyRegister() {
     company_field: '',
   }); // valores da parte de informacoes tecnicas
   const [components, setComponents] = React.useState<any>();
+  const router = useRouter();
 
   const handleChipChange = (value: any) => {
     setComponents(value);
@@ -59,7 +62,7 @@ export default function ProjectCompanyRegister() {
         date_conclusion: '2024-03-09T16:06:04.025Z',
       };
       const response = await createProject(payload);
-      console.log('response', response);
+      router.push('/home');
     } catch (error) {
       console.log('error', error);
     }
@@ -130,17 +133,8 @@ export default function ProjectCompanyRegister() {
         </div>
       </div>
 
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          marginTop: '24px',
-        }}
-      >
-        <button type="button" onClick={handleButtonClick}>
-          {' '}
-          Salvar{' '}
-        </button>
+      <div style={{ display: 'flex', justifyContent: "flex-end", marginTop: "24px" }}>
+        <Button text={"Salvar"} style="primary" onClick={handleButtonClick} />
       </div>
 
       <hr style={{ marginTop: '48px', marginBottom: '48px' }} />
