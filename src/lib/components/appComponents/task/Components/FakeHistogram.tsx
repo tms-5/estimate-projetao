@@ -2,6 +2,7 @@
 
 import Button from "@/lib/components/button/Button";
 import { Histogram } from "@/lib/components/charts/Histogram/Histogram";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function FakeHistogram({
@@ -16,6 +17,8 @@ export default function FakeHistogram({
   let dataFakeHistogram3 = [300, 300, 354, 495, 284];
 
   const [size, setSize] = useState(500);
+
+  const router = useRouter();
 
   useEffect(() => {
     const updateSize = () => {
@@ -37,6 +40,7 @@ export default function FakeHistogram({
         <Button
           text={"Estime e Ganhe!"}
           class="bg-teal-blue-100 c-white b-none no-filter p-1 w-fit fw-800"
+          onClick={() => router.push("/task/estimate/1")}
         />
         <Button
           text={"Não ganhar e acessar as informações"}
