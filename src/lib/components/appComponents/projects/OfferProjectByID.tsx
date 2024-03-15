@@ -21,6 +21,10 @@ export default function OfferProjectByID() {
     };
   };
 
+  function handleRefuse() {
+    router.push('/home');
+  }
+
   return (
     <>
       <PageTitle title="PROJETOS" subTitle={""} />
@@ -48,7 +52,7 @@ export default function OfferProjectByID() {
       </div>
 
       <div style={{ marginBottom: '48px', display: 'flex', gap: '24px' }}>
-        <button style={{ border: '1px solid #757575', borderRadius: '8px', width: '16%', fontSize: '16px' }} type="button">Recusar</button>
+        <button style={{ border: '1px solid #757575', borderRadius: '8px', width: '16%', fontSize: '16px' }} onClick={handleRefuse} type="button">Recusar</button>
         <button 
           style={{ 
             borderRadius: '8px', 
