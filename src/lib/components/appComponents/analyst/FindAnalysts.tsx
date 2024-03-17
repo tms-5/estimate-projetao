@@ -1,5 +1,12 @@
 import { useState } from 'react';
 import SmallCard from '../../analystCard/smallCard';
+import PopUp from '../../popUp';
+import {
+  Especialista1,
+  Especialista2,
+  Especialista3,
+  Especialista4,
+} from '../../../assets/images';
 
 interface Analyst {
   user_id: string;
@@ -12,34 +19,30 @@ interface Analyst {
 const fakeData: Analyst[] = [
   {
     user_id: '1',
-    name: 'João Silva',
-    image:
-      'https://t4.ftcdn.net/jpg/02/24/86/95/360_F_224869519_aRaeLneqALfPNBzg0xxMZXghtvBXkfIA.jpg',
-    estimated: 9,
+    name: 'Paulo Vitor',
+    image: Especialista2.src,
+    estimated: 11,
     ranking: 2,
   },
   {
     user_id: '2',
-    name: 'Julia Santos',
-    image:
-      'https://media.istockphoto.com/id/1325565779/photo/smiling-african-american-business-woman-wearing-stylish-eyeglasses-looking-at-camera-standing.jpg?s=612x612&w=0&k=20&c=wsNA_POOFtsKGjucqci4ndeSX-NWcT3hEt9E3a_oXpY=',
-    estimated: 10,
+    name: 'Thamires Morais',
+    image: Especialista1.src,
+    estimated: 12,
     ranking: 1,
   },
   {
     user_id: '3',
-    name: 'Daniel Oliveira',
-    image:
-      'https://media.istockphoto.com/id/1296158947/photo/portrait-of-creative-trendy-black-african-male-designer-laughing.jpg?s=612x612&w=0&k=20&c=1Ws_LSzWjYvegGxHYQkkgVytdpDcnmK0upJyGOzEPcg=',
-    estimated: 8,
+    name: 'Eduardo Melo',
+    image: Especialista3.src,
+    estimated: 10,
     ranking: 3,
   },
   {
     user_id: '4',
-    name: 'Ana Souza',
-    image:
-      'https://t4.ftcdn.net/jpg/04/99/46/39/360_F_499463959_C7iVlJ7AwO1nYAoqv3mMakdZWoREvog5.jpg',
-    estimated: 7,
+    name: 'Luis Felipe',
+    image: Especialista4.src,
+    estimated: 10,
     ranking: 4,
   },
 ];
@@ -47,6 +50,15 @@ const fakeData: Analyst[] = [
 export default function FindAnalysts() {
   const [analysts, setAnalysts] = useState<Analyst[]>(fakeData);
   const [selectedButton, setSelectedButton] = useState(0);
+  const [showPopUp, setShowPopUp] = useState(false);
+
+  const handleSelectAnalyst = () => {
+    setShowPopUp(true);
+  };
+
+  const handlePopUpButton = () => {
+    setShowPopUp(false);
+  };
 
   const renderList = () => {
     return analysts.map((analyst, index) => (
@@ -58,13 +70,13 @@ export default function FindAnalysts() {
         estimated={analyst.estimated}
         ranking={analyst.ranking}
         display_ranking={selectedButton === 1}
-        selectAnalyst={() => {}}
+        selectAnalyst={handleSelectAnalyst}
       />
     ));
   };
 
-  const orderList = () => {
-    if (selectedButton === 0) {
+  const orderList = (index: number) => {
+    if (index === 0) {
       setAnalysts(fakeData);
     } else {
       const rankingAnalysts = analysts.sort((a, b) => a.ranking - b.ranking);
@@ -73,8 +85,8 @@ export default function FindAnalysts() {
   };
 
   const handleButtonClick = (index: number) => {
+    orderList(index);
     setSelectedButton(index);
-    orderList();
   };
 
   return (
@@ -83,10 +95,10 @@ export default function FindAnalysts() {
       <p>Selecione abaixo o especialista desejado para estimar seu projeto</p>
       <div
         style={{
-          width: '100%',
+          width: '50%',
           display: 'flex',
           flexDirection: 'row',
-          justifyContent: 'center',
+          justifyContent: 'flex-end',
           alignItems: 'center',
           marginTop: '2rem',
         }}
@@ -127,6 +139,15 @@ export default function FindAnalysts() {
       >
         {renderList()}
       </div>
+      {showPopUp && (
+        <PopUp
+          text="Deseja enviar por email uma proposta para este especialista?"
+          buttonText2="Sim"
+          buttonText1="Não"
+          buttonAction1={handlePopUpButton}
+          buttonAction2={handlePopUpButton}
+        />
+      )}
     </>
   );
 }
